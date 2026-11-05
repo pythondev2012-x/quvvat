@@ -1,0 +1,79 @@
+{% extends 'unfold/layouts/unauthenticated.html' %}
+{% load i18n static unfold %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    {{ form.media }}
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+{% endblock %}
+
+{% block title %}{% if form.errors %}Xatolik: {% endif %}Kirish | Quvvat{% endblock %}
+
+{% block bodyclass %}{{ block.super }} qv-login-page{% endblock %}
+
+{% block content %}
+<div class="qv-login">
+    <div class="qv-login__brand">
+        <span class="qv-login__mark">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M5 19v-7h7V5h7"/></svg>
+        </span>
+        <span class="qv-login__brand-copy">
+            <strong>Quvvat</strong>
+            <small>santexnika / boshqaruv</small>
+        </span>
+    </div>
+
+    <p class="qv-eyebrow">Xush kelibsiz</p>
+    <h1 class="qv-login__title">Tizimga <em>kirish</em></h1>
+    <p class="qv-login__sub">Do‘kon boshqaruvi uchun login va parolingizni kiriting.</p>
+
+    {% if form.errors or form.non_field_errors %}
+        <div class="qv-login__error">
+            <span class="material-symbols-outlined">error</span>
+            <div>
+                <b>Kirish amalga oshmadi.</b>
+                {% if form.non_field_errors %}
+                    {{ form.non_field_errors }}
+                {% else %}
+                    Login yoki parolni tekshirib, qaytadan urinib ko‘ring.
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <div class="qv-login__error">
+            <span class="material-symbols-outlined">info</span>
+            <div>Siz <b>{{ username }}</b> sifatida tizimdasiz, ammo bu sahifaga ruxsat yo‘q. Boshqa akkaunt bilan kiring.</div>
+        </div>
+    {% endif %}
+
+    <form action="{{ app_path }}" method="post" id="login-form" class="qv-login__form">
+        {% csrf_token %}
+
+        <div class="form-field {% if form.username.errors %}errors{% endif %}">
+            <label for="{{ form.username.id_for_label }}">Login</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+
+        <div class="form-field {% if form.password.errors %}errors{% endif %}">
+            <label for="{{ form.password.id_for_label }}">Parol</label>
+            {{ form.password }}
+            {{ form.password.errors }}
+        </div>
+
+        <input type="hidden" name="next" value="{{ next }}">
+
+        <button type="submit" class="qv-btn qv-btn--red qv-login__submit">
+            Kirish
+            <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+    </form>
+
+    <div class="qv-login__foot">
+        <span class="qv-login__foot-line"></span>
+        <p>Oq / qora / qizil — Quvvat boshqaruv tizimi</p>
+    </div>
+</div>
+{% endblock %}

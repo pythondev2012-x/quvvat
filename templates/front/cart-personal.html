@@ -1,0 +1,94 @@
+{% extends "front/base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Buyurtmani rasmiylashtirish" %} — Quvvat{% endblock %}
+
+{% block content %}
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Oxirgi qadam" %}</p>
+      <h1>{% trans "Buyurtmani rasmiylashtirish" %}</h1>
+    </div>
+  </div>
+
+  <div class="cart-layout">
+    <form class="profile-form" method="post">
+      {% csrf_token %}
+      <label class="field">{% trans "Ism yoki login" %}
+        <input type="text" name="username" value="{{ user.username }}" required>
+      </label>
+      <label class="field">{% trans "Telefon raqami" %}
+        <input type="tel" name="phone" value="{{ user.phone|default:'' }}" required>
+      </label>
+      <label class="field">{% trans "Yetkazib berish manzili" %}
+        <textarea name="address" rows="3" required>{{ user.address|default:'' }}</textarea>
+      </label>
+      <input type="hidden" name="latitude" id="order-latitude">
+      <input type="hidden" name="longitude" id="order-longitude">
+      <div class="geo-row">
+        <button class="btn btn--outline-dark" type="button" id="geo-btn">{% trans "Lokatsiyani biriktirish" %}</button>
+        <p class="geo-note" id="geo-note">{% trans "Ixtiyoriy — aniq manzilni xaritada yuborish uchun ruxsat bering." %}</p>
+      </div>
+      <button class="btn btn--red btn--full" type="submit">{% trans "Buyurtmani tasdiqlash" %}</button>
+    </form>
+
+    <aside class="summary">
+      <h2>{% trans "Mahsulotlar" %}</h2>
+      <ul class="summary-list">
+        {% for cp in cart_products %}
+          <li><span>{{ cp.product.display_name }} × {{ cp.count }}</span><b>{{ cp.total_price|floatformat:0|intcomma }}</b></li>
+        {% endfor %}
+      </ul>
+      <p class="summary-row summary-total"><span>{% trans "Jami" %}</span><b>{{ cart.cart_total_price|floatformat:0|intcomma }} {% trans "so'm" %}</b></p>
+    </aside>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById('geo-btn');
+    var note = document.getElementById('geo-note');
+    var latInput = document.getElementById('order-latitude');
+    var lonInput = document.getElementById('order-longitude');
+
+    var messages = {
+      unsupported: "{% trans "Brauzeringiz lokatsiyani qo'llab-quvvatlamaydi — manzilni qo'lda kiriting." %}",
+      locating: "{% trans "Lokatsiya aniqlanmoqda…" %}",
+      attached: "{% trans "Lokatsiya biriktirildi ✓" %}",
+      update: "{% trans "Lokatsiyani yangilash" %}",
+      failed: "{% trans "Lokatsiyani olib bo'lmadi — manzilni qo'lda kiriting." %}"
+    };
+
+    if (!btn || !latInput || !lonInput) return;
+
+    if (!navigator.geolocation) {
+      btn.hidden = true;
+      note.textContent = messages.unsupported;
+      return;
+    }
+
+    btn.addEventListener('click', function () {
+      btn.disabled = true;
+      note.textContent = messages.locating;
+
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          latInput.value = position.coords.latitude.toFixed(6);
+          lonInput.value = position.coords.longitude.toFixed(6);
+          note.textContent = messages.attached;
+          btn.textContent = messages.update;
+          btn.disabled = false;
+        },
+        function () {
+          latInput.value = '';
+          lonInput.value = '';
+          note.textContent = messages.failed;
+          btn.disabled = false;
+        },
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
+      );
+    });
+  })();
+</script>
+{% endblock %}

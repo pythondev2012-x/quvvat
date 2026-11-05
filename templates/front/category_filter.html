@@ -1,0 +1,24 @@
+{% extends "front/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Kategoriya" %} — Quvvat{% endblock %}
+
+{% block content %}
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Kategoriya" %}</p>
+      <h1>{% if products %}{{ products.0.category.display_name }}{% else %}{% trans "Kategoriya" %}{% endif %}</h1>
+    </div>
+    <p class="muted">{% blocktrans with count=products|length %}{{ count }} ta mahsulot{% endblocktrans %}</p>
+  </div>
+
+  <div class="product-grid section-pad">
+    {% for product in products %}
+      {% include "front/_card.html" %}
+    {% empty %}
+      <p class="empty">{% trans "Bu kategoriyada hozircha mahsulot yo'q." %} <a class="link" href="{% url 'all_products' %}">{% trans "Katalogga qaytish" %}</a></p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

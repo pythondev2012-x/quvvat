@@ -1,0 +1,105 @@
+{% extends "front/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Katalog" %} — Quvvat{% endblock %}
+
+{% block content %}
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Barcha bo'limlar" %}</p>
+      <h1>{% trans "Katalog" %}</h1>
+    </div>
+    <div class="page-head-actions">
+      <p class="muted">{% blocktrans with count=products|length %}{{ count }} ta mahsulot{% endblocktrans %}</p>
+    </div>
+  </div>
+
+  <div class="catalog-layout">
+    <aside class="filters-aside">
+      <form class="filters" method="get" id="filters-form">
+        <label class="field">{% trans "Qidiruv" %}
+          <input type="search" name="q" value="{{ request.GET.q }}" placeholder="{% trans 'Nomi yoki tavsifi' %}">
+        </label>
+        <label class="field">{% trans "Kategoriya" %}
+          <select name="category">
+            <option value="">{% trans "Hammasi" %}</option>
+            {% for c in categories %}
+              <option value="{{ c.id }}" {% if request.GET.category == c.id|stringformat:"s" %}selected{% endif %}>{{ c.display_name }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        <div class="filters-price">
+          <label class="field">{% trans "Narx (dan)" %}
+            <input type="number" name="min_price" min="0" value="{{ request.GET.min_price }}">
+          </label>
+          <label class="field">{% trans "Narx (gacha)" %}
+            <input type="number" name="max_price" min="0" value="{{ request.GET.max_price }}">
+          </label>
+        </div>
+        <label class="field">{% trans "Chegirma holati" %}
+          <select name="discount_status">
+            <option value="">{% trans "Hammasi" %}</option>
+            <option value="yes" {% if request.GET.discount_status == 'yes' %}selected{% endif %}>{% trans "Ha" %}</option>
+            <option value="no" {% if request.GET.discount_status == 'no' %}selected{% endif %}>{% trans "Yo'q" %}</option>
+          </select>
+        </label>
+        <label class="field">{% trans "Yaratilgan vaqti" %}
+          <select name="created_at">
+            <option value="">{% trans "Har qanday sana" %}</option>
+            <option value="today" {% if request.GET.created_at == 'today' %}selected{% endif %}>{% trans "Bugun" %}</option>
+            <option value="past_7_days" {% if request.GET.created_at == 'past_7_days' %}selected{% endif %}>{% trans "O'tgan 7 kun" %}</option>
+            <option value="this_month" {% if request.GET.created_at == 'this_month' %}selected{% endif %}>{% trans "Bu oy" %}</option>
+            <option value="this_year" {% if request.GET.created_at == 'this_year' %}selected{% endif %}>{% trans "Bu yil" %}</option>
+          </select>
+        </label>
+        <button class="btn btn--red btn--full" type="submit">{% trans "Filtrlash" %}</button>
+        <a class="link filters-reset" href="{% url 'all_products' %}">{% trans "Tozalash" %}</a>
+        <button class="btn btn--dark btn--full filters-close" type="button" id="filters-close">{% trans "Yopish" %}</button>
+      </form>
+    </aside>
+
+    <section>
+      <div class="product-grid">
+        {% for product in products %}
+          {% include "front/_card.html" %}
+        {% empty %}
+          <p class="empty">{% trans "Hech narsa topilmadi. Filtrni o'zgartirib ko'ring." %}</p>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+(function() {
+  var filterToggle = document.getElementById('filter-toggle');
+  var filtersClose = document.getElementById('filters-close');
+  var filtersAside = document.querySelector('.filters-aside');
+  var filtersForm = document.getElementById('filters-form');
+
+  if (filterToggle && filtersAside) {
+    filterToggle.addEventListener('click', function() {
+      filtersAside.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+
+  if (filtersClose && filtersAside) {
+    filtersClose.addEventListener('click', function() {
+      filtersAside.classList.remove('is-open');
+      document.body.style.overflow = '';
+    });
+  }
+
+  if (filtersForm) {
+    filtersForm.addEventListener('submit', function() {
+      if (filtersAside) {
+        filtersAside.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "front/base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Savat" %} — Quvvat{% endblock %}
+
+{% block content %}
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Buyurtma" %}</p>
+      <h1>{% trans "Savat" %}</h1>
+    </div>
+  </div>
+
+  {% if cart_products %}
+  <div class="cart-layout">
+    <div class="cart-list">
+      {% for cp in cart_products %}
+        <div class="cart-row">
+          <a class="cart-thumb" href="{% url 'product_detail' cp.product.code %}">
+            {% if cp.product.image %}
+              <img src="{{ cp.product.image.url }}" alt="{{ cp.product.display_name }}">
+            {% else %}
+              <span class="cart-thumb-empty" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 19v-7h7V5h7"/></svg>
+              </span>
+            {% endif %}
+          </a>
+          <div class="cart-name">
+            <a href="{% url 'product_detail' cp.product.code %}">{{ cp.product.display_name }}</a>
+            <p class="muted">
+              {% if cp.product.discount_status and cp.product.discount_price %}{{ cp.product.discount_price|floatformat:0|intcomma }}{% else %}{{ cp.product.price|floatformat:0|intcomma }}{% endif %} {% trans "so'm" %}
+            </p>
+          </div>
+          <div class="qty">
+            <a class="qty-btn" href="{% url 'cart_product_count_minus' cp.code %}" aria-label="{% trans 'Kamaytirish' %}">−</a>
+            <span>{{ cp.count }}</span>
+            <a class="qty-btn" href="{% url 'cart_product_count_pilus' cp.code %}" aria-label="{% trans "Ko'paytirish" %}">+</a>
+          </div>
+          <strong class="cart-sum">{{ cp.total_price|floatformat:0|intcomma }} {% trans "so'm" %}</strong>
+        </div>
+      {% endfor %}
+    </div>
+
+    <aside class="summary">
+      <h2>{% trans "Buyurtma" %}</h2>
+      {% if discount_total_price %}
+        <p class="summary-row"><span>{% trans "Chegirma" %}</span><b class="red">−{{ discount_total_price|floatformat:0|intcomma }} {% trans "so'm" %}</b></p>
+      {% endif %}
+      <p class="summary-row summary-total"><span>{% trans "Jami" %}</span><b>{{ cart.cart_total_price|floatformat:0|intcomma }} {% trans "so'm" %}</b></p>
+      <a class="btn btn--red btn--full" href="{% url 'cart_personal' %}">{% trans "Buyurtma berish" %}</a>
+      <a class="link summary-link" href="{% url 'all_products' %}">{% trans "Xaridni davom ettirish" %}</a>
+    </aside>
+  </div>
+  {% else %}
+    <p class="empty section-pad">{% trans "Savat bo'sh." %} <a class="link" href="{% url 'all_products' %}">{% trans "Katalogga o'tish" %}</a></p>
+  {% endif %}
+</div>
+{% endblock %}

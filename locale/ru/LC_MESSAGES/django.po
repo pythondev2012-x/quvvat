@@ -1,0 +1,475 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Quvvat 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-01 00:00+0500\n"
+"PO-Revision-Date: 2026-01-01 00:00+0500\n"
+"Last-Translator: Quvvat <dev@quvvat.uz>\n"
+"Language-Team: ru\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "%(count)s ta"
+msgstr "%(count)s шт."
+
+msgid "%(count)s ta mahsulot"
+msgstr "%(count)s товаров"
+
+msgid "24 soat"
+msgstr "24 часа"
+
+msgid "5 yil"
+msgstr "5 лет"
+
+msgid "Akkauntingiz bormi?"
+msgstr "Уже есть аккаунт?"
+
+msgid "Akkauntingiz yo'qmi?"
+msgstr "Нет аккаунта?"
+
+msgid "Aksiya"
+msgstr "Акция"
+
+msgid "Aloqa"
+msgstr "Контакты"
+
+msgid "Asosiy kontentga o'tish"
+msgstr "Перейти к основному содержанию"
+
+msgid "Asosiy menyu"
+msgstr "Главное меню"
+
+msgid "Barcha bo'limlar"
+msgstr "Все разделы"
+
+msgid "Barcha huquqlar himoyalangan."
+msgstr "Все права защищены."
+
+msgid "Barcha mahsulotlar"
+msgstr "Все товары"
+
+msgid "Bo'limlar"
+msgstr "Разделы"
+
+msgid "Bosh sahifa"
+msgstr "Главная"
+
+msgid "Brauzeringiz lokatsiyani qo'llab-quvvatlamaydi — manzilni qo'lda kiriting."
+msgstr "Ваш браузер не поддерживает геолокацию — введите адрес вручную."
+
+msgid "Bu kategoriyada hozircha mahsulot yo'q."
+msgstr "В этой категории пока нет товаров."
+
+msgid "Bu oy"
+msgstr "Этот месяц"
+
+msgid "Bu username allaqachon mavjud"
+msgstr "Это имя пользователя уже занято"
+
+msgid "Bu yil"
+msgstr "Этот год"
+
+msgid "Bugun"
+msgstr "Сегодня"
+
+msgid "Buyurtma"
+msgstr "Заказ"
+
+msgid "Buyurtma berish"
+msgstr "Оформить заказ"
+
+msgid "Buyurtma qabul qilindi"
+msgstr "Заказ принят"
+
+msgid "Buyurtmalarim"
+msgstr "Мои заказы"
+
+msgid "Buyurtmangiz qabul qilindi"
+msgstr "Ваш заказ принят"
+
+msgid "Buyurtmani rasmiylashtirish"
+msgstr "Оформление заказа"
+
+msgid "Buyurtmani tasdiqlash"
+msgstr "Подтвердить заказ"
+
+msgid "Chegirma"
+msgstr "Скидка"
+
+msgid "Chegirma holati"
+msgstr "Наличие скидки"
+
+msgid "Chiqish"
+msgstr "Выйти"
+
+msgid "Familiya"
+msgstr "Фамилия"
+
+msgid "Faqat rasmiy yetkazib beruvchilardan olingan tovarlar."
+msgstr "Товары только от официальных поставщиков."
+
+msgid "Filtrlar"
+msgstr "Фильтры"
+
+msgid "Filtrlash"
+msgstr "Фильтровать"
+
+msgid "Ha"
+msgstr "Да"
+
+msgid "Hali buyurtma bermagansiz."
+msgstr "Вы ещё не делали заказов."
+
+msgid "Hammasi"
+msgstr "Все"
+
+msgid "Har bir jihozga kafolat beriladi, nosoz bo'lsa almashtirib beramiz."
+msgstr "На каждое изделие предоставляется гарантия; при неисправности мы заменим его."
+
+msgid "Har kuni 9:00 dan 19:00 gacha"
+msgstr "Ежедневно с 9:00 до 19:00"
+
+msgid "Har kuni 9:00–19:00"
+msgstr "Ежедневно 9:00–19:00"
+
+msgid "Har qanday sana"
+msgstr "Любая дата"
+
+msgid "Hech narsa topilmadi. Filtrni o'zgartirib ko'ring."
+msgstr "Ничего не найдено. Попробуйте изменить фильтры."
+
+msgid "Hisob yaratish"
+msgstr "Создание аккаунта"
+
+msgid "Holati"
+msgstr "Статус"
+
+msgid "Hozircha tugagan"
+msgstr "Пока нет в наличии"
+
+msgid "Ishonch — asosiy quvvat"
+msgstr "Доверие — главная сила"
+
+msgid "Ishonchli santexnika"
+msgstr "Надёжная сантехника"
+
+msgid "Ism"
+msgstr "Имя"
+
+msgid "Ism yoki login"
+msgstr "Имя или логин"
+
+msgid "Ixtiyoriy — aniq manzilni xaritada yuborish uchun ruxsat bering."
+msgstr "Необязательно — разрешите доступ, чтобы отправить точный адрес на карте."
+
+msgid "Jami"
+msgstr "Итого"
+
+msgid "Kafolat"
+msgstr "Гарантия"
+
+msgid "Kamaytirish"
+msgstr "Уменьшить"
+
+msgid "Katalog"
+msgstr "Каталог"
+
+msgid "Katalogga o'tish"
+msgstr "Перейти в каталог"
+
+msgid "Katalogga qaytish"
+msgstr "Вернуться в каталог"
+
+msgid "Katalogni ochish"
+msgstr "Открыть каталог"
+
+msgid "Kategoriya"
+msgstr "Категория"
+
+msgid "Kategoriyalar"
+msgstr "Категории"
+
+msgid "Kategoriyalar tez orada qo'shiladi."
+msgstr "Категории скоро появятся."
+
+msgid "Kerakli jihozlarni katalogdan tanlang, savatga qo'shing va buyurtma bering. Qolganini biz bajaramiz."
+msgstr "Выберите нужное оборудование в каталоге, добавьте в корзину и оформите заказ. Остальное мы сделаем сами."
+
+msgid "Kirish"
+msgstr "Войти"
+
+msgid "Ko'paytirish"
+msgstr "Увеличить"
+
+msgid "Login"
+msgstr "Логин"
+
+msgid "Lokatsiya aniqlanmoqda…"
+msgstr "Определение местоположения…"
+
+msgid "Lokatsiya biriktirildi ✓"
+msgstr "Местоположение прикреплено ✓"
+
+msgid "Lokatsiyani biriktirish"
+msgstr "Прикрепить местоположение"
+
+msgid "Lokatsiyani olib bo'lmadi — manzilni qo'lda kiriting."
+msgstr "Не удалось получить местоположение — введите адрес вручную."
+
+msgid "Lokatsiyani yangilash"
+msgstr "Обновить местоположение"
+
+msgid "Ma`lumotlarni to`g`ri to`ldiring"
+msgstr "Заполните данные правильно"
+
+msgid "Mahsulot qidirish"
+msgstr "Поиск товаров"
+
+msgid "Mahsulotlar"
+msgstr "Товары"
+
+msgid "Mahsulotlar tez orada qo'shiladi."
+msgstr "Товары скоро появятся."
+
+msgid "Manzil"
+msgstr "Адрес"
+
+msgid "Maslahat kerakmi?"
+msgstr "Нужна консультация?"
+
+msgid "Menyu"
+msgstr "Меню"
+
+msgid "Narx (dan)"
+msgstr "Цена (от)"
+
+msgid "Narx (gacha)"
+msgstr "Цена (до)"
+
+msgid "Navigatsiya"
+msgstr "Навигация"
+
+msgid "Nega Quvvat?"
+msgstr "Почему Quvvat?"
+
+msgid "No Faol"
+msgstr "Неактивный"
+
+msgid "Nomi yoki tavsifi"
+msgstr "Название или описание"
+
+msgid "Noto`g`ri login yoki parol"
+msgstr "Неверный логин или пароль"
+
+msgid "O'tgan 7 kun"
+msgstr "Последние 7 дней"
+
+msgid "O'zbekiston bo'ylab"
+msgstr "По всему Узбекистану"
+
+msgid "O'zbekiston bo'ylab yetkazib berish"
+msgstr "Доставка по всему Узбекистану"
+
+msgid "Omborda bor: %(count)s dona"
+msgstr "В наличии: %(count)s шт."
+
+msgid "Original mahsulot"
+msgstr "Оригинальный товар"
+
+msgid "Original · Kafolat · Tez yetkazish"
+msgstr "Оригинал · Гарантия · Быстрая доставка"
+
+msgid "Oxirgi qadam"
+msgstr "Последний шаг"
+
+msgid "Parol"
+msgstr "Пароль"
+
+msgid "Parolni takrorlang"
+msgstr "Повторите пароль"
+
+msgid "Profil"
+msgstr "Профиль"
+
+msgid "Profil rasmi"
+msgstr "Фото профиля"
+
+msgid "Qaytarilgan"
+msgstr "Возвращён"
+
+msgid "Qidirish"
+msgstr "Поиск"
+
+msgid "Qidiruv"
+msgstr "Поиск"
+
+msgid "Quvvat — bosh sahifa"
+msgstr "Quvvat — главная страница"
+
+msgid "Quvvat — santexnika do'koni"
+msgstr "Quvvat — магазин сантехники"
+
+msgid "Quvvat — uy va ob'ektlar uchun santexnika jihozlari: smesitel, unitaz, vanna, quvur va isitish tizimlari."
+msgstr "Quvvat — сантехника для дома и объектов: смесители, унитазы, ванны, трубы и системы отопления."
+
+msgid "Rahmat"
+msgstr "Спасибо"
+
+msgid "Rasm"
+msgstr "Фото"
+
+msgid "Rasmiy kafolat"
+msgstr "Официальная гарантия"
+
+msgid "Rasmiy kafolat bilan"
+msgstr "С официальной гарантией"
+
+msgid "Ro'yxatdan o'tish"
+msgstr "Регистрация"
+
+msgid "Sana"
+msgstr "Дата"
+
+msgid "Santexnika markazi · Toshkent"
+msgstr "Сантехнический центр · Ташкент"
+
+msgid "Saqlab qo'yish"
+msgstr "Сохранить"
+
+msgid "Saqlangan mahsulot yo'q."
+msgstr "Нет сохранённых товаров."
+
+msgid "Saqlanganlar"
+msgstr "Избранное"
+
+msgid "Saqlanganlardan olib tashlash"
+msgstr "Убрать из избранного"
+
+msgid "Saqlash"
+msgstr "Сохранить"
+
+msgid "Savat"
+msgstr "Корзина"
+
+msgid "Savat bo'sh."
+msgstr "Корзина пуста."
+
+msgid "Savatga"
+msgstr "В корзину"
+
+msgid "Savatga qo'shish"
+msgstr "Добавить в корзину"
+
+msgid "Shaxsiy kabinet"
+msgstr "Личный кабинет"
+
+msgid "Smesitel · Unitaz · Vanna"
+msgstr "Смеситель · Унитаз · Ванна"
+
+msgid "Smesitel, unitaz, vanna, quvur va isitish jihozlari. Ombordan, kafolat bilan, tez yetkazib beramiz."
+msgstr "Смесители, унитазы, ванны, трубы и отопительное оборудование. Со склада, с гарантией, быстрая доставка."
+
+msgid "Summa"
+msgstr "Сумма"
+
+msgid "Ta'mirga tayyorlanyapsizmi?"
+msgstr "Готовитесь к ремонту?"
+
+msgid "Tanlanganlar"
+msgstr "Избранное"
+
+msgid "Tavsif"
+msgstr "Описание"
+
+msgid "Telefon"
+msgstr "Телефон"
+
+msgid "Telefon raqami"
+msgstr "Номер телефона"
+
+msgid "Tez orada menejerimiz siz bilan bog'lanadi."
+msgstr "Наш менеджер скоро свяжется с вами."
+
+msgid "Tez yetkazib berish"
+msgstr "Быстрая доставка"
+
+msgid "Til tanlash"
+msgstr "Выбор языка"
+
+msgid "Toshkent bo'ylab 1 kunda"
+msgstr "По Ташкенту за 1 день"
+
+msgid "Toshkent bo'ylab bir kunda, viloyatlarga 2–3 kunda."
+msgstr "По Ташкенту — за один день, в регионы — за 2–3 дня."
+
+msgid "Toshkent shahar, O'zbekiston"
+msgstr "г. Ташкент, Узбекистан"
+
+msgid "Tozalash"
+msgstr "Сбросить"
+
+msgid "Tugagan"
+msgstr "Нет в наличии"
+
+msgid "Uy va ob'ektlar uchun santexnika jihozlari. Original mahsulot, aniq narx va kafolat — barchasi bir joyda."
+msgstr "Сантехническое оборудование для дома и объектов. Оригинальные товары, точные цены и гарантия — всё в одном месте."
+
+msgid "Uyingiz uchun <span class=\"accent\">ishonchli</span> <span class=\"outline\">santexnika</span>"
+msgstr "Надёжная <span class=\"accent\">сантехника</span> <span class=\"outline\">для дома</span>"
+
+msgid "Xaridni davom ettirish"
+msgstr "Продолжить покупки"
+
+msgid "Xush kelibsiz"
+msgstr "Добро пожаловать"
+
+msgid "Yangi kelganlar"
+msgstr "Новинки"
+
+msgid "Yangi mahsulotlar"
+msgstr "Новые товары"
+
+msgid "Yaratilgan vaqti"
+msgstr "Дата создания"
+
+msgid "Yetkazib berish manzili"
+msgstr "Адрес доставки"
+
+msgid "Yetkazilgan"
+msgstr "Доставлен"
+
+msgid "Yetkazish"
+msgstr "Доставка"
+
+msgid "Yig'ilmoqda"
+msgstr "Собирается"
+
+msgid "Yo'lda"
+msgstr "В пути"
+
+msgid "Yo'q"
+msgstr "Нет"
+
+msgid "Yopish"
+msgstr "Закрыть"
+
+msgid "kafolat"
+msgstr "гарантия"
+
+msgid "original"
+msgstr "оригинал"
+
+msgid "original mahsulot"
+msgstr "оригинальный товар"
+
+msgid "santexnika"
+msgstr "сантехника"
+
+msgid "so'm"
+msgstr "сум"
+
+msgid "yetkazish"
+msgstr "доставка"

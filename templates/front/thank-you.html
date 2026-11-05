@@ -1,0 +1,29 @@
+{% extends "front/base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Rahmat" %} — Quvvat{% endblock %}
+
+{% block content %}
+<div class="wrap thanks">
+  <div class="thanks-mark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4.5 4.5L19 6.5"/></svg>
+  </div>
+  <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Buyurtma qabul qilindi" %}</p>
+  <h1>{% trans "Buyurtmangiz qabul qilindi" %}</h1>
+  <p class="muted">{% trans "Tez orada menejerimiz siz bilan bog'lanadi." %}</p>
+
+  {% if cart_products %}
+    <ul class="summary-list thanks-list">
+      {% for cp in cart_products %}
+        <li><span>{{ cp.product.display_name }} × {{ cp.count }}</span><b>{{ cp.total_price|floatformat:0|intcomma }} {% trans "so'm" %}</b></li>
+      {% endfor %}
+    </ul>
+    <p class="summary-row summary-total"><span>{% trans "Jami" %}</span><b>{{ cart.cart_total_price|floatformat:0|intcomma }} {% trans "so'm" %}</b></p>
+  {% endif %}
+
+  <div class="hero-actions">
+    <a class="btn btn--red" href="{% url 'profile' %}">{% trans "Buyurtmalarim" %}</a>
+    <a class="btn btn--outline-dark" href="{% url 'index' %}">{% trans "Bosh sahifa" %}</a>
+  </div>
+</div>
+{% endblock %}

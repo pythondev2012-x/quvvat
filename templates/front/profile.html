@@ -1,0 +1,72 @@
+{% extends "front/base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{% trans "Profil" %} — Quvvat{% endblock %}
+
+{% block content %}
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Shaxsiy kabinet" %}</p>
+      <h1>{% trans "Profil" %}</h1>
+    </div>
+  </div>
+
+  <div class="profile-layout">
+    <form class="profile-form" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="avatar">
+        {% if user.photo %}
+          <img src="{{ user.photo.url }}" alt="{% trans 'Profil rasmi' %}">
+        {% else %}
+          <span>{{ user.username|slice:":1"|upper }}</span>
+        {% endif %}
+      </div>
+      <label class="field">{% trans "Rasm" %}
+        <input type="file" name="photo" accept="image/*">
+      </label>
+      <label class="field">{% trans "Login" %}
+        <input type="text" name="username" value="{{ user.username }}" required>
+      </label>
+      <label class="field">{% trans "Ism" %}
+        <input type="text" name="first_name" value="{{ user.first_name }}">
+      </label>
+      <label class="field">{% trans "Familiya" %}
+        <input type="text" name="last_name" value="{{ user.last_name }}">
+      </label>
+      <label class="field">{% trans "Telefon" %}
+        <input type="tel" name="phone" value="{{ user.phone|default:'' }}">
+      </label>
+      <label class="field">{% trans "Manzil" %}
+        <textarea name="address" rows="3">{{ user.address|default:'' }}</textarea>
+      </label>
+      <button class="btn btn--dark btn--full" type="submit">{% trans "Saqlash" %}</button>
+    </form>
+
+    <section>
+      <h2 class="block-title">{% trans "Buyurtmalarim" %}</h2>
+      {% if orders %}
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr><th>{% trans "Sana" %}</th><th>{% trans "Mahsulotlar" %}</th><th>{% trans "Summa" %}</th><th>{% trans "Holati" %}</th></tr>
+            </thead>
+            <tbody>
+              {% for o in orders %}
+                <tr>
+                  <td>{{ o.date|date:"d.m.Y H:i" }}</td>
+                  <td>{% blocktrans with count=o.count_product %}{{ count }} ta{% endblocktrans %}</td>
+                  <td>{{ o.cart_total_price|floatformat:0|intcomma }} {% trans "so'm" %}</td>
+                  <td><span class="status status--{{ o.status }}">{% if o.status == 1 %}{% trans "No Faol" %}{% elif o.status == 2 %}{% trans "Yig'ilmoqda" %}{% elif o.status == 3 %}{% trans "Yo'lda" %}{% elif o.status == 4 %}{% trans "Yetkazilgan" %}{% elif o.status == 5 %}{% trans "Qaytarilgan" %}{% else %}{{ o.get_status_display }}{% endif %}</span></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="empty">{% trans "Hali buyurtma bermagansiz." %} <a class="link" href="{% url 'all_products' %}">{% trans "Katalogga o'tish" %}</a></p>
+      {% endif %}
+    </section>
+  </div>
+</div>
+{% endblock %}

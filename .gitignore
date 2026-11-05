@@ -1,0 +1,27 @@
+# Maxfiy sozlamalar (GitHub'ga yuklanmaydi)
+.env
+tokens.py
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Ma'lumotlar bazasi
+db.sqlite3
+*.sqlite3
+
+# Django
+staticfiles/
+media/users/
+
+# Zaxira nusxalar
+backups/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,199 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block title %}Dashboard | Quvvat{% endblock %}
+
+{% block content %}
+<div class="qv-dash">
+
+  <section class="qv-hero">
+    <div class="qv-hero__body">
+      <p class="qv-eyebrow">Quvvat / boshqaruv markazi</p>
+      <h1>Do‘kon <em>nazorati</em></h1>
+      <p class="qv-hero__sub">Mahsulotlar, buyurtmalar va ombor holati — bitta panelda.</p>
+    </div>
+    <div class="qv-hero__side">
+      <span class="qv-hero__date">{{ qv_today|date:"d.m.Y" }}</span>
+      <a class="qv-hero__link" href="/" target="_blank" rel="noopener">
+        Saytni ko‘rish
+        <span class="material-symbols-outlined">arrow_outward</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="qv-stats" aria-label="Asosiy ko‘rsatkichlar">
+    {% for stat in qv_stats %}
+      <a class="qv-stat" href="{{ stat.url }}">
+        <span class="qv-stat__top">
+          <span class="qv-stat__label">{{ stat.label }}</span>
+          <span class="qv-stat__icon material-symbols-outlined">{{ stat.icon }}</span>
+        </span>
+        <span class="qv-stat__value">
+          {{ stat.value }}{% if stat.suffix %}<small>{{ stat.suffix }}</small>{% endif %}
+        </span>
+        <span class="qv-stat__hint">{{ stat.hint }}</span>
+      </a>
+    {% endfor %}
+  </section>
+
+  <section class="qv-statusbar" aria-label="Buyurtmalar holati">
+    {% for item in qv_statuses %}
+      <div class="qv-statusbar__item">
+        <span class="qv-statusbar__dot qv-tone--{{ item.tone }}"></span>
+        <span class="qv-statusbar__count">{{ item.count }}</span>
+        <span class="qv-statusbar__label">{{ item.label }}</span>
+      </div>
+    {% endfor %}
+  </section>
+
+  <div class="qv-panels">
+    <section class="qv-panel qv-panel--orders">
+      <header class="qv-panel__head">
+        <div>
+          <p class="qv-eyebrow">Savdo oqimi</p>
+          <h2 class="qv-panel__title">So‘nggi buyurtmalar</h2>
+        </div>
+        <a class="qv-panel__link" href="{% url 'admin:main_cart_changelist' %}">Barchasi</a>
+      </header>
+      <div class="qv-panel__body">
+        {% if qv_recent_orders %}
+          <table class="qv-table">
+            <thead>
+              <tr>
+                <th>Mijoz</th>
+                <th>Holat</th>
+                <th class="qv-table__num">Mahsulot</th>
+                <th class="qv-table__num">Summa</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in qv_recent_orders %}
+                <tr>
+                  <td>
+                    <a class="qv-order-user" href="{% url 'admin:main_cart_change' order.pk %}">
+                      <span class="qv-avatar">{{ order.user.username|slice:":1"|upper }}</span>
+                      <span class="qv-order-user__copy">
+                        <b>{{ order.user.get_full_name|default:order.user.username }}</b>
+                        <small>{{ order.date|date:"d.m.Y · H:i" }}</small>
+                      </span>
+                    </a>
+                  </td>
+                  <td>
+                    <span class="qv-badge qv-badge--{{ order.qv_tone }}">{{ order.get_status_display }}</span>
+                  </td>
+                  <td class="qv-table__num">{{ order.qv_items }}</td>
+                  <td class="qv-table__num"><b>{{ order.qv_total }}</b> <small>so‘m</small></td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p class="qv-empty">Hozircha buyurtmalar yo‘q.</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <aside class="qv-panel qv-panel--stock">
+      <header class="qv-panel__head">
+        <div>
+          <p class="qv-eyebrow">Ombor signali</p>
+          <h2 class="qv-panel__title">Kam qoldi</h2>
+        </div>
+        <a class="qv-panel__link" href="{% url 'admin:main_product_changelist' %}">Katalog</a>
+      </header>
+      <div class="qv-panel__body">
+        {% if qv_low_stock %}
+          <ul class="qv-stock-list">
+            {% for item in qv_low_stock %}
+              <li>
+                <a href="{% url 'admin:main_product_change' item.pk %}">
+                  <span class="qv-thumb">
+                    {% if item.image %}
+                      <img src="{{ item.image.url }}" alt="">
+                    {% else %}
+                      <span class="material-symbols-outlined">plumbing</span>
+                    {% endif %}
+                  </span>
+                  <span class="qv-stock-list__copy">
+                    <b>{{ item.name }}</b>
+                    <small>{{ item.category.name }}</small>
+                  </span>
+                  <span class="qv-stock qv-stock--{% if item.count <= 0 %}out{% elif item.count <= 5 %}low{% else %}ok{% endif %}">
+                    {{ item.count }} ta
+                  </span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="qv-empty">Ombor holati yaxshi — kam qolgan mahsulot yo‘q.</p>
+        {% endif %}
+      </div>
+    </aside>
+  </div>
+
+  <div class="qv-panels qv-panels--even">
+    <section class="qv-panel">
+      <header class="qv-panel__head">
+        <div>
+          <p class="qv-eyebrow">Talab</p>
+          <h2 class="qv-panel__title">Eng ko‘p sotilgan</h2>
+        </div>
+        <a class="qv-panel__link" href="{% url 'admin:main_product_changelist' %}">Mahsulotlar</a>
+      </header>
+      <div class="qv-panel__body">
+        {% if qv_top_products %}
+          <ul class="qv-top-list">
+            {% for item in qv_top_products %}
+              <li>
+                <a href="{% url 'admin:main_product_change' item.pk %}">
+                  <span class="qv-rank">{{ forloop.counter|stringformat:"02d" }}</span>
+                  <span class="qv-thumb">
+                    {% if item.image %}
+                      <img src="{{ item.image.url }}" alt="">
+                    {% else %}
+                      <span class="material-symbols-outlined">plumbing</span>
+                    {% endif %}
+                  </span>
+                  <span class="qv-stock-list__copy">
+                    <b>{{ item.name }}</b>
+                    <small>{{ item.category.name }}</small>
+                  </span>
+                  <span class="qv-top-list__sold">{{ item.sold }} <small>ta</small></span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="qv-empty">Sotuv statistikasi hali shakllanmagan.</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="qv-panel">
+      <header class="qv-panel__head">
+        <div>
+          <p class="qv-eyebrow">Tezkor amallar</p>
+          <h2 class="qv-panel__title">Yangi qo‘shish</h2>
+        </div>
+      </header>
+      <div class="qv-panel__body">
+        <div class="qv-quick">
+          {% for link in qv_quick_links %}
+            <a href="{{ link.url }}">
+              <span class="material-symbols-outlined">{{ link.icon }}</span>
+              {{ link.label }}
+            </a>
+          {% endfor %}
+        </div>
+
+        <div class="qv-note">
+          <span class="qv-note__mark">!</span>
+          <p>Mahsulot narxi va ombor sonini yangilab tursangiz, do‘kon sahifasi darhol o‘zgaradi.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</div>
+{% endblock %}

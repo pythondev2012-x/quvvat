@@ -1,0 +1,62 @@
+{% extends "front/base.html" %}
+{% load humanize i18n %}
+
+{% block title %}{{ product.display_name }} — Quvvat{% endblock %}
+
+{% block content %}
+<div class="wrap">
+  <nav class="breadcrumbs" aria-label="{% trans 'Navigatsiya' %}">
+    <a href="{% url 'index' %}">{% trans "Bosh sahifa" %}</a>
+    <span aria-hidden="true">/</span>
+    <a href="{% url 'category_filter' product.category.id %}">{{ product.category.display_name }}</a>
+    <span aria-hidden="true">/</span>
+    <span>{{ product.display_name }}</span>
+  </nav>
+
+  <div class="detail">
+    <div class="detail-img">
+      {% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.display_name }}">{% endif %}
+      {% if product.discount_status and product.discount_price %}<span class="badge">{% trans "Aksiya" %}</span>{% endif %}
+    </div>
+
+    <div class="detail-info">
+      <p class="eyebrow"><span class="eyebrow-mark"></span>{{ product.category.display_name }}</p>
+      <h1>{{ product.display_name }}</h1>
+
+      <p class="detail-price">
+        {% if product.discount_status and product.discount_price %}
+          <strong>{{ product.discount_price|floatformat:0|intcomma }} {% trans "so'm" %}</strong>
+          <s>{{ product.price|floatformat:0|intcomma }} {% trans "so'm" %}</s>
+        {% else %}
+          <strong>{{ product.price|floatformat:0|intcomma }} {% trans "so'm" %}</strong>
+        {% endif %}
+      </p>
+
+      <p class="stock {% if product.count > 0 %}stock--yes{% else %}stock--no{% endif %}">
+        {% if product.count > 0 %}{% blocktrans with count=product.count %}Omborda bor: {{ count }} dona{% endblocktrans %}{% else %}{% trans "Hozircha tugagan" %}{% endif %}
+      </p>
+
+      <div class="detail-actions">
+        {% if product.count > 0 %}
+          <a class="btn btn--red btn--grow" href="{% url 'add_to_cart' product.code %}">{% trans "Savatga qo'shish" %}</a>
+        {% else %}
+          <span class="btn btn--disabled btn--grow">{% trans "Tugagan" %}</span>
+        {% endif %}
+        {% if product.id in wishlist_ids %}
+          <a class="btn btn--outline-dark" href="{% url 'delete_wishlist' product.code %}">{% trans "Saqlanganlardan olib tashlash" %}</a>
+        {% else %}
+          <a class="btn btn--outline-dark" href="{% url 'add_wishlist' product.code %}">{% trans "Saqlab qo'yish" %}</a>
+        {% endif %}
+      </div>
+
+      <ul class="detail-facts">
+        <li><b>{% trans "Yetkazish" %}</b><span>{% trans "Toshkent bo'ylab 1 kunda" %}</span></li>
+        <li><b>{% trans "Kafolat" %}</b><span>{% trans "Rasmiy kafolat bilan" %}</span></li>
+      </ul>
+
+      <h2 class="detail-sub">{% trans "Tavsif" %}</h2>
+      <p class="detail-desc">{{ product.display_description|linebreaksbr }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

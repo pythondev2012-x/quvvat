@@ -1,0 +1,25 @@
+{% extends "front/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Saqlanganlar" %} — Quvvat{% endblock %}
+
+{% block content %}
+<div class="wrap">
+  <div class="page-head">
+    <div>
+      <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Tanlanganlar" %}</p>
+      <h1>{% trans "Saqlanganlar" %}</h1>
+    </div>
+  </div>
+
+  <div class="product-grid section-pad">
+    {% for item in wishlist_products %}
+      {% if item.product %}
+        {% include "front/_card.html" with product=item.product wishlist_ids=wishlist_ids %}
+      {% endif %}
+    {% empty %}
+      <p class="empty">{% trans "Saqlangan mahsulot yo'q." %} <a class="link" href="{% url 'all_products' %}">{% trans "Katalogga o'tish" %}</a></p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

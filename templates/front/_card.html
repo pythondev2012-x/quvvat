@@ -1,0 +1,38 @@
+{% load humanize i18n %}
+<article class="card">
+  <a class="card-img" href="{% url 'product_detail' product.code %}">
+    {% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.display_name }}" loading="lazy">{% endif %}
+    {% if product.discount_status and product.discount_price %}<span class="badge">{% trans "Aksiya" %}</span>{% endif %}
+  </a>
+  <div class="card-body">
+    <p class="card-brand">{{ product.category.display_name }}</p>
+    <h3 class="card-name"><a href="{% url 'product_detail' product.code %}">{{ product.display_name }}</a></h3>
+    <p class="price">
+      {% if product.discount_status and product.discount_price %}
+        <strong>{{ product.discount_price|floatformat:0|intcomma }} {% trans "so'm" %}</strong>
+        <s>{{ product.price|floatformat:0|intcomma }}</s>
+      {% else %}
+        <strong>{{ product.price|floatformat:0|intcomma }} {% trans "so'm" %}</strong>
+      {% endif %}
+    </p>
+    <div class="card-actions">
+      {% if product.count > 0 %}
+        <a class="btn btn--dark btn--grow" href="{% url 'add_to_cart' product.code %}">
+          <span class="card-action-long">{% trans "Savatga qo'shish" %}</span>
+          <span class="card-action-short">{% trans "Savatga" %}</span>
+        </a>
+      {% else %}
+        <span class="btn btn--disabled btn--grow">{% trans "Tugagan" %}</span>
+      {% endif %}
+      {% if product.id in wishlist_ids %}
+        <a class="wish is-on" href="{% url 'delete_wishlist' product.code %}" aria-label="{% trans 'Saqlanganlardan olib tashlash' %}">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 21C12 21 3 15.5 3 9.5A4.5 4.5 0 0 1 12 7.5 4.5 4.5 0 0 1 21 9.5C21 15.5 12 21 12 21Z"/></svg>
+        </a>
+      {% else %}
+        <a class="wish" href="{% url 'add_wishlist' product.code %}" aria-label="{% trans 'Saqlash' %}">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 21C12 21 3 15.5 3 9.5A4.5 4.5 0 0 1 12 7.5 4.5 4.5 0 0 1 21 9.5C21 15.5 12 21 12 21Z"/></svg>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</article>

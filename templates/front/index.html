@@ -1,0 +1,188 @@
+{% extends "front/base.html" %}
+{% load humanize i18n %}
+
+{% block content %}
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <p class="eyebrow eyebrow--light"><span class="eyebrow-mark"></span>{% trans "Santexnika markazi · Toshkent" %}</p>
+      <h1>{% blocktrans %}Uyingiz uchun <span class="accent">ishonchli</span> <span class="outline">santexnika</span>{% endblocktrans %}</h1>
+      <p class="hero-lead">{% trans "Smesitel, unitaz, vanna, quvur va isitish jihozlari. Ombordan, kafolat bilan, tez yetkazib beramiz." %}</p>
+      <div class="hero-actions">
+        <a class="btn btn--red btn--lg" href="{% url 'all_products' %}">
+          {% trans "Katalogni ochish" %}
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        {% if user.is_authenticated %}
+          <a class="btn btn--outline btn--lg" href="{% url 'logout' %}">{% trans "Chiqish" %}</a>
+        {% else %}
+          <a class="btn btn--outline btn--lg" href="{% url 'register' %}">{% trans "Ro'yxatdan o'tish" %}</a>
+        {% endif %}
+      </div>
+
+      <ul class="hero-stats">
+        <li><b>{% trans "5 yil" %}</b><span>{% trans "kafolat" %}</span></li>
+        <li><b>{% trans "24 soat" %}</b><span>{% trans "yetkazish" %}</span></li>
+        <li><b>100%</b><span>{% trans "original" %}</span></li>
+      </ul>
+    </div>
+
+    <div class="hero-side reveal">
+      <div class="hero-frame">
+        {% for p in latest_products %}
+          <a class="hero-item" href="{% url 'product_detail' p.code %}">
+            <span class="hero-item-no">{{ forloop.counter|stringformat:"02d" }}</span>
+            {% if p.image %}<img src="{{ p.image.url }}" alt="{{ p.display_name }}">{% endif %}
+            <span class="hero-item-body">
+              <b>{{ p.display_name }}</b>
+              <em>
+                {% if p.discount_status and p.discount_price %}{{ p.discount_price|floatformat:0|intcomma }}{% else %}{{ p.price|floatformat:0|intcomma }}{% endif %} {% trans "so'm" %}
+              </em>
+            </span>
+            <span class="hero-item-arrow" aria-hidden="true">↗</span>
+          </a>
+        {% empty %}
+          <svg class="hero-pipe" viewBox="0 0 420 360" aria-hidden="true" fill="none">
+            <path d="M0 310H150V170H300V0" stroke="#d71920" stroke-width="40"/>
+            <rect x="120" y="285" width="60" height="50" fill="#000" stroke="#fff" stroke-width="3"/>
+            <rect x="270" y="145" width="60" height="50" fill="#000" stroke="#fff" stroke-width="3"/>
+            <circle cx="300" cy="82" r="26" fill="#000" stroke="#fff" stroke-width="4"/>
+            <path d="M282 82h36M300 64v36" stroke="#fff" stroke-width="4"/>
+          </svg>
+        {% endfor %}
+      </div>
+      <div class="hero-badge" aria-hidden="true">
+        <b>100%</b>
+        <span>{% trans "original mahsulot" %}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-group">
+      <span>{% trans "Original mahsulot" %}</span><i></i>
+      <span>{% trans "Rasmiy kafolat" %}</span><i></i>
+      <span>{% trans "Tez yetkazib berish" %}</span><i></i>
+      <span>{% trans "O'zbekiston bo'ylab" %}</span><i></i>
+      <span>{% trans "Smesitel · Unitaz · Vanna" %}</span><i></i>
+      <span>{% trans "Ishonchli santexnika" %}</span><i></i>
+    </div>
+    <div class="marquee-group">
+      <span>{% trans "Original mahsulot" %}</span><i></i>
+      <span>{% trans "Rasmiy kafolat" %}</span><i></i>
+      <span>{% trans "Tez yetkazib berish" %}</span><i></i>
+      <span>{% trans "O'zbekiston bo'ylab" %}</span><i></i>
+      <span>{% trans "Smesitel · Unitaz · Vanna" %}</span><i></i>
+      <span>{% trans "Ishonchli santexnika" %}</span><i></i>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Bo'limlar" %}</p>
+        <h2>{% trans "Kategoriyalar" %}</h2>
+      </div>
+      <a class="link" href="{% url 'all_products' %}">{% trans "Hammasi" %} <span aria-hidden="true">→</span></a>
+    </div>
+
+    <div class="cat-grid">
+      {% for c in top_categories %}
+        <a class="cat-tile reveal" href="{% url 'category_filter' c.id %}">
+          <span class="cat-no">{{ forloop.counter|stringformat:"02d" }}</span>
+          {% if c.logo %}<img src="{{ c.logo.url }}" alt="" loading="lazy">{% endif %}
+          <span class="cat-name">{{ c.display_name }}</span>
+          <span class="cat-arrow" aria-hidden="true">→</span>
+        </a>
+      {% empty %}
+        {% for c in categories %}
+          <a class="cat-tile reveal" href="{% url 'category_filter' c.id %}">
+            <span class="cat-no">{{ forloop.counter|stringformat:"02d" }}</span>
+            {% if c.logo %}<img src="{{ c.logo.url }}" alt="" loading="lazy">{% endif %}
+            <span class="cat-name">{{ c.display_name }}</span>
+            <span class="cat-arrow" aria-hidden="true">→</span>
+          </a>
+        {% empty %}
+          <p class="empty">{% trans "Kategoriyalar tez orada qo'shiladi." %}</p>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--paper">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Yangi kelganlar" %}</p>
+        <h2>{% trans "Yangi mahsulotlar" %}</h2>
+      </div>
+      <a class="link" href="{% url 'all_products' %}">{% trans "Barcha mahsulotlar" %} <span aria-hidden="true">→</span></a>
+    </div>
+
+    {% if categories %}
+    <div class="chips">
+      {% for c in categories %}
+        <a class="chip" href="{% url 'category_filter' c.id %}">{{ c.display_name }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="product-grid">
+      {% for product in products %}
+        {% include "front/_card.html" %}
+      {% empty %}
+        <p class="empty">{% trans "Mahsulotlar tez orada qo'shiladi." %}</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="promo">
+  <div class="wrap promo-row reveal">
+    <div class="promo-copy">
+      <p class="eyebrow eyebrow--light"><span class="eyebrow-mark"></span>{% trans "Maslahat kerakmi?" %}</p>
+      <h2>{% trans "Ta'mirga tayyorlanyapsizmi?" %}</h2>
+      <p>{% trans "Kerakli jihozlarni katalogdan tanlang, savatga qo'shing va buyurtma bering. Qolganini biz bajaramiz." %}</p>
+    </div>
+    <a class="btn btn--white btn--lg" href="{% url 'all_products' %}">
+      {% trans "Katalogga o'tish" %}
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Nega Quvvat?" %}</p>
+        <h2>{% trans "Ishonch — asosiy quvvat" %}</h2>
+      </div>
+    </div>
+    <div class="perks">
+      <div class="perk reveal">
+        <span class="perk-no">01</span>
+        <h3>{% trans "Original mahsulot" %}</h3>
+        <p>{% trans "Faqat rasmiy yetkazib beruvchilardan olingan tovarlar." %}</p>
+      </div>
+      <div class="perk reveal">
+        <span class="perk-no">02</span>
+        <h3>{% trans "Kafolat" %}</h3>
+        <p>{% trans "Har bir jihozga kafolat beriladi, nosoz bo'lsa almashtirib beramiz." %}</p>
+      </div>
+      <div class="perk reveal">
+        <span class="perk-no">03</span>
+        <h3>{% trans "Tez yetkazib berish" %}</h3>
+        <p>{% trans "Toshkent bo'ylab bir kunda, viloyatlarga 2–3 kunda." %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
