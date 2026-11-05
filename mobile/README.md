@@ -90,6 +90,10 @@ runner) yordamida `.ipa` yig'ish mumkin — repozitoriy shu holatda tayyor.
 **To'liq qadam-baqadam qo'llanma (Mac'li do'stingiz uchun):**
 [`IOS_BUILD.md`](IOS_BUILD.md). Tayyor skript: `./tool/ios_setup.sh`.
 
+**Mac yo'qmi?** [`IOS_SELF_BUILD.md`](IOS_SELF_BUILD.md) — Codemagic +
+Sideloadly bilan o'zingiz yig'ib, bepul Apple ID bilan o'rnatasiz
+(`codemagic.yaml` tayyor).
+
 Launcher ikonkasini yangilash:
 
 ```bash

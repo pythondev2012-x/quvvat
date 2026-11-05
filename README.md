@@ -152,3 +152,5 @@ Telefon uchun backend `0.0.0.0:8000` da tinglashi kerak — `scripts\start.ps1`
 buni avtomatik qiladi va lokal IP manzilni ko'rsatadi.
 
 iOS build uchun Mac kerak: [`mobile/IOS_BUILD.md`](mobile/IOS_BUILD.md).
+Mac bo'lmasa: [`mobile/IOS_SELF_BUILD.md`](mobile/IOS_SELF_BUILD.md)
+(Codemagic + Sideloadly, bepul Apple ID).

@@ -1,0 +1,32 @@
+workflows:
+  ios-unsigned:
+    name: Quvvat iOS (imzosiz IPA)
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    cache:
+      cache_paths:
+        - ~/.pub-cache
+    scripts:
+      - name: Flutter paketlari
+        script: |
+          cd mobile
+          flutter pub get
+      - name: Imzosiz iOS build
+        script: |
+          cd mobile
+          flutter build ios --release --no-codesign
+      - name: IPA yig'ish (Payload)
+        script: |
+          cd mobile/build/ios/iphoneos
+          rm -rf Payload Quvvat-unsigned.ipa
+          mkdir Payload
+          cp -R Runner.app Payload/
+          zip -r -y Quvvat-unsigned.ipa Payload
+          ls -lh Quvvat-unsigned.ipa
+    artifacts:
+      - mobile/build/ios/iphoneos/Quvvat-unsigned.ipa
+      - mobile/build/ios/iphoneos/Runner.app

@@ -3,6 +3,10 @@
 Bu qo'llanma **macOS + Xcode** bor kompyuterda iOS ilovani yig'ish va
 iPhone'ga o'rnatish uchun. Windows'da iOS build qilib bo'lmaydi.
 
+> **Mac yo'qmi?** [`IOS_SELF_BUILD.md`](IOS_SELF_BUILD.md) — Codemagic
+> (bulutli macOS) + Sideloadly (Windows) orqali **Macsiz va $99 hisobsiz**
+> o'zingiz o'rnatishingiz mumkin.
+
 Repo: `https://github.com/pythondev2012-x/quvvat` (branch `main`).
 Ilova papkasi: `mobile/`.
 
