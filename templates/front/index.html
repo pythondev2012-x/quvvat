@@ -60,6 +60,42 @@
   </div>
 </section>
 
+{% if banners %}
+<section class="banner-section" aria-label="{% trans 'Aksiya va bannerlar' %}">
+  <div class="wrap">
+    <div class="banner-slider" data-banner-slider>
+      {% for b in banners %}
+        <a class="banner-slide{% if forloop.first %} is-active{% endif %}"
+           href="{% if b.product_1 %}{% url 'product_detail' b.product_1.code %}{% else %}{% url 'all_products' %}{% endif %}"
+           {% if not forloop.first %}aria-hidden="true" tabindex="-1"{% endif %}>
+          <img src="{{ b.image.url }}" alt="{{ b.title }}"{% if not forloop.first %} loading="lazy"{% endif %}>
+          <span class="banner-shade" aria-hidden="true"></span>
+          <span class="banner-copy">
+            <span class="banner-kicker">{{ forloop.counter|stringformat:"02d" }} / {{ banners|length }}</span>
+            <b class="banner-title">{{ b.title }}</b>
+            {% if b.description %}<span class="banner-text">{{ b.description }}</span>{% endif %}
+            <span class="banner-cta">{% trans "Batafsil" %} <span aria-hidden="true">→</span></span>
+          </span>
+        </a>
+      {% endfor %}
+
+      {% if banners|length > 1 %}
+        <button class="banner-nav banner-nav--prev" type="button" data-banner-prev aria-label="{% trans 'Oldingi banner' %}">←</button>
+        <button class="banner-nav banner-nav--next" type="button" data-banner-next aria-label="{% trans 'Keyingi banner' %}">→</button>
+        <div class="banner-dots">
+          {% for b in banners %}
+            <button class="banner-dot{% if forloop.first %} is-active{% endif %}" type="button"
+                    data-banner-dot="{{ forloop.counter0 }}"
+                    aria-label="{{ forloop.counter }} / {{ banners|length }}"
+                    {% if forloop.first %}aria-current="true"{% endif %}></button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
     <div class="marquee-group">
@@ -185,4 +221,105 @@
   </div>
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+  (function () {
+    var sliders = document.querySelectorAll('[data-banner-slider]');
+    sliders.forEach(function (slider) {
+      var slides = slider.querySelectorAll('.banner-slide');
+      var dots = slider.querySelectorAll('[data-banner-dot]');
+      if (slides.length < 2) { return; }
+
+      var index = 0;
+      var timer = null;
+      var startX = null;
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function show(next) {
+        next = (next + slides.length) % slides.length;
+        if (next === index) { return; }
+
+        slides[index].classList.remove('is-active');
+        slides[index].setAttribute('aria-hidden', 'true');
+        slides[index].setAttribute('tabindex', '-1');
+
+        index = next;
+        slides[index].classList.add('is-active');
+        slides[index].removeAttribute('aria-hidden');
+        slides[index].removeAttribute('tabindex');
+
+        dots.forEach(function (dot, i) {
+          dot.classList.toggle('is-active', i === index);
+          if (i === index) {
+            dot.setAttribute('aria-current', 'true');
+          } else {
+            dot.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      function stop() {
+        if (timer) { clearInterval(timer); timer = null; }
+      }
+
+      function start() {
+        stop();
+        if (reduced || document.hidden) { return; }
+        timer = setInterval(function () { show(index + 1); }, 5000);
+      }
+
+      slider.addEventListener('mouseenter', stop);
+      slider.addEventListener('mouseleave', start);
+      slider.addEventListener('focusin', stop);
+      slider.addEventListener('focusout', start);
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) { stop(); } else { start(); }
+      });
+
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          show(parseInt(dot.getAttribute('data-banner-dot'), 10));
+          start();
+        });
+      });
+
+      var prev = slider.querySelector('[data-banner-prev]');
+      var next = slider.querySelector('[data-banner-next]');
+      if (prev) {
+        prev.addEventListener('click', function (event) {
+          event.preventDefault();
+          show(index - 1);
+          start();
+        });
+      }
+      if (next) {
+        next.addEventListener('click', function (event) {
+          event.preventDefault();
+          show(index + 1);
+          start();
+        });
+      }
+
+      slider.addEventListener('touchstart', function (event) {
+        startX = event.touches[0].clientX;
+        stop();
+      }, { passive: true });
+      slider.addEventListener('touchend', function (event) {
+        if (startX === null) { return; }
+        var delta = event.changedTouches[0].clientX - startX;
+        startX = null;
+        if (Math.abs(delta) > 45) {
+          show(index + (delta < 0 ? 1 : -1));
+        }
+        start();
+      }, { passive: true });
+
+      start();
+    });
+  })();
+</script>
 {% endblock %}

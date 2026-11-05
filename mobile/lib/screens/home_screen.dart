@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _loading = true;
   String? _error;
   int _bannerIndex = 0;
+  Timer? _bannerTimer;
 
   @override
   void initState() {
@@ -47,8 +50,28 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void dispose() {
+    _bannerTimer?.cancel();
     _pageController.dispose();
     super.dispose();
+  }
+
+  /// Bannerlar avtomatik aylanishi (5 soniya).
+  void _restartBannerTimer() {
+    _bannerTimer?.cancel();
+    if (_banners.length < 2) {
+      return;
+    }
+    _bannerTimer = Timer.periodic(const Duration(seconds: 5), (_) {
+      if (!mounted || !_pageController.hasClients) {
+        return;
+      }
+      final nextIndex = (_bannerIndex + 1) % _banners.length;
+      _pageController.animateToPage(
+        nextIndex,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 
   Future<void> _load() async {
@@ -100,6 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ..clear()
           ..addAll(products);
       });
+      _restartBannerTimer();
     } on ApiException catch (error) {
       if (mounted) {
         setState(() => _error = error.message);
@@ -372,7 +396,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: PageView.builder(
               controller: _pageController,
               itemCount: _banners.length,
-              onPageChanged: (index) => setState(() => _bannerIndex = index),
+              onPageChanged: (index) {
+                setState(() => _bannerIndex = index);
+                _restartBannerTimer();
+              },
               itemBuilder: (context, index) {
                 final banner = _banners[index];
                 return Padding(

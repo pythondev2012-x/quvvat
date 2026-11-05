@@ -11,12 +11,14 @@ TRANSLATIONS = {
         'Akkauntingiz bormi?': 'Уже есть аккаунт?',
         "Akkauntingiz yo'qmi?": 'Нет аккаунта?',
         'Aksiya': 'Акция',
+        'Aksiya va bannerlar': 'Акции и баннеры',
         'Aloqa': 'Контакты',
         "Asosiy kontentga o'tish": 'Перейти к основному содержанию',
         'Asosiy menyu': 'Главное меню',
         "Barcha bo'limlar": 'Все разделы',
         'Barcha huquqlar himoyalangan.': 'Все права защищены.',
         'Barcha mahsulotlar': 'Все товары',
+        'Batafsil': 'Подробнее',
         "Bo'limlar": 'Разделы',
         'Bosh sahifa': 'Главная',
         "Brauzeringiz lokatsiyani qo'llab-quvvatlamaydi — manzilni qo'lda kiriting.": (
@@ -81,6 +83,7 @@ TRANSLATIONS = {
             'Выберите нужное оборудование в каталоге, добавьте в корзину и '
             'оформите заказ. Остальное мы сделаем сами.'
         ),
+        'Keyingi banner': 'Следующий баннер',
         'Kirish': 'Войти',
         "Ko'paytirish": 'Увеличить',
         'Login': 'Логин',
@@ -107,6 +110,7 @@ TRANSLATIONS = {
         "O'zbekiston bo'ylab": 'По всему Узбекистану',
         "O'zbekiston bo'ylab yetkazib berish": 'Доставка по всему Узбекистану',
         'Omborda bor: %(count)s dona': 'В наличии: %(count)s шт.',
+        'Oldingi banner': 'Предыдущий баннер',
         'Original mahsulot': 'Оригинальный товар',
         'Original · Kafolat · Tez yetkazish': (
             'Оригинал · Гарантия · Быстрая доставка'
@@ -203,12 +207,14 @@ TRANSLATIONS = {
         'Akkauntingiz bormi?': 'Already have an account?',
         "Akkauntingiz yo'qmi?": "Don't have an account?",
         'Aksiya': 'Sale',
+        'Aksiya va bannerlar': 'Sales and banners',
         'Aloqa': 'Contact',
         "Asosiy kontentga o'tish": 'Skip to main content',
         'Asosiy menyu': 'Main menu',
         "Barcha bo'limlar": 'All sections',
         'Barcha huquqlar himoyalangan.': 'All rights reserved.',
         'Barcha mahsulotlar': 'All products',
+        'Batafsil': 'Learn more',
         "Bo'limlar": 'Sections',
         'Bosh sahifa': 'Home',
         "Brauzeringiz lokatsiyani qo'llab-quvvatlamaydi — manzilni qo'lda kiriting.": (
@@ -275,6 +281,7 @@ TRANSLATIONS = {
             'Choose the equipment you need from the catalog, add it to your '
             'cart and place an order. We will take care of the rest.'
         ),
+        'Keyingi banner': 'Next banner',
         'Kirish': 'Log in',
         "Ko'paytirish": 'Increase',
         'Login': 'Login',
@@ -301,6 +308,7 @@ TRANSLATIONS = {
         "O'zbekiston bo'ylab": 'Across Uzbekistan',
         "O'zbekiston bo'ylab yetkazib berish": 'Delivery across Uzbekistan',
         'Omborda bor: %(count)s dona': 'In stock: %(count)s pcs.',
+        'Oldingi banner': 'Previous banner',
         'Original mahsulot': 'Original product',
         'Original · Kafolat · Tez yetkazish': (
             'Original · Warranty · Fast delivery'

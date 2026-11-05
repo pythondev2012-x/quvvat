@@ -33,6 +33,9 @@ msgstr "Don't have an account?"
 msgid "Aksiya"
 msgstr "Sale"
 
+msgid "Aksiya va bannerlar"
+msgstr "Sales and banners"
+
 msgid "Aloqa"
 msgstr "Contact"
 
@@ -50,6 +53,9 @@ msgstr "All rights reserved."
 
 msgid "Barcha mahsulotlar"
 msgstr "All products"
+
+msgid "Batafsil"
+msgstr "Learn more"
 
 msgid "Bo'limlar"
 msgstr "Sections"
@@ -198,6 +204,9 @@ msgstr "Categories will be added soon."
 msgid "Kerakli jihozlarni katalogdan tanlang, savatga qo'shing va buyurtma bering. Qolganini biz bajaramiz."
 msgstr "Choose the equipment you need from the catalog, add it to your cart and place an order. We will take care of the rest."
 
+msgid "Keyingi banner"
+msgstr "Next banner"
+
 msgid "Kirish"
 msgstr "Log in"
 
@@ -272,6 +281,9 @@ msgstr "Across Uzbekistan"
 
 msgid "O'zbekiston bo'ylab yetkazib berish"
 msgstr "Delivery across Uzbekistan"
+
+msgid "Oldingi banner"
+msgstr "Previous banner"
 
 msgid "Omborda bor: %(count)s dona"
 msgstr "In stock: %(count)s pcs."

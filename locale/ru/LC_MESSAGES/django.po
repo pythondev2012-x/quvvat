@@ -33,6 +33,9 @@ msgstr "Нет аккаунта?"
 msgid "Aksiya"
 msgstr "Акция"
 
+msgid "Aksiya va bannerlar"
+msgstr "Акции и баннеры"
+
 msgid "Aloqa"
 msgstr "Контакты"
 
@@ -50,6 +53,9 @@ msgstr "Все права защищены."
 
 msgid "Barcha mahsulotlar"
 msgstr "Все товары"
+
+msgid "Batafsil"
+msgstr "Подробнее"
 
 msgid "Bo'limlar"
 msgstr "Разделы"
@@ -198,6 +204,9 @@ msgstr "Категории скоро появятся."
 msgid "Kerakli jihozlarni katalogdan tanlang, savatga qo'shing va buyurtma bering. Qolganini biz bajaramiz."
 msgstr "Выберите нужное оборудование в каталоге, добавьте в корзину и оформите заказ. Остальное мы сделаем сами."
 
+msgid "Keyingi banner"
+msgstr "Следующий баннер"
+
 msgid "Kirish"
 msgstr "Войти"
 
@@ -272,6 +281,9 @@ msgstr "По всему Узбекистану"
 
 msgid "O'zbekiston bo'ylab yetkazib berish"
 msgstr "Доставка по всему Узбекистану"
+
+msgid "Oldingi banner"
+msgstr "Предыдущий баннер"
 
 msgid "Omborda bor: %(count)s dona"
 msgstr "В наличии: %(count)s шт."
