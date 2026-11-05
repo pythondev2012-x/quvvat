@@ -87,6 +87,9 @@ beradi; TestFlight/App Store uchun Apple Developer Program ($99/yil) kerak.
 Mac bo'lmasa, bulutli macOS (masalan, Codemagic yoki GitHub Actions macOS
 runner) yordamida `.ipa` yig'ish mumkin — repozitoriy shu holatda tayyor.
 
+**To'liq qadam-baqadam qo'llanma (Mac'li do'stingiz uchun):**
+[`IOS_BUILD.md`](IOS_BUILD.md). Tayyor skript: `./tool/ios_setup.sh`.
+
 Launcher ikonkasini yangilash:
 
 ```bash

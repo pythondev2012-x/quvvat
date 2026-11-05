@@ -149,4 +149,6 @@ API manzili ilova sozlamalarida o‘zgartiriladi:
 - Telefon: `http://<kompyuter-IP>:8000/api`
 
 Telefon uchun backend `0.0.0.0:8000` da tinglashi kerak — `scripts\start.ps1`
-buni avtomatik qiladi va lokal IP manzilni ko‘rsatadi.
+buni avtomatik qiladi va lokal IP manzilni ko'rsatadi.
+
+iOS build uchun Mac kerak: [`mobile/IOS_BUILD.md`](mobile/IOS_BUILD.md).
