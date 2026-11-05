@@ -76,6 +76,11 @@
         </form>
       </div>
 
+      <a class="header-cta" href="{% url 'all_products' %}">
+        {% trans "Katalog" %}
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+
       <a class="cart" href="{% url 'cart' %}" aria-label="{% trans 'Savat' %}">
         <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 5h2l2.2 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H7"/><circle cx="10" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
         <span>{% trans "Savat" %}</span>

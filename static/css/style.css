@@ -503,21 +503,98 @@ h1, h2, h3, p { margin: 0; }
   text-transform: uppercase;
 }
 
-/* Banner karuseli */
-.banner-section { padding: 3rem 0 0; }
-.banner-slider {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 16 / 6;
-  min-height: 280px;
-  max-height: 470px;
-  background: var(--ink);
-  border: 1px solid var(--line-dark);
+/* Header CTA */
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  flex: none;
+  padding: .68rem 1rem;
+  background: var(--red);
+  color: var(--white);
   border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
-  isolation: isolate;
+  font: 600 .86rem var(--font-body);
+  transition: background .22s var(--ease), transform .22s var(--ease), box-shadow .22s var(--ease);
 }
-.banner-slide {
+.header-cta:hover {
+  background: var(--ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--red);
+}
+
+/* Hero banner (hero o'ng ustunida) */
+.hero-side { display: grid; gap: .85rem; }
+.hero-banner {
+  border: 1px solid rgba(255, 255, 255, .17);
+  background: rgba(255, 255, 255, .03);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.hero-banner-bar {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .5rem .6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, .14);
+}
+.hero-banner-label {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  flex: none;
+  font: 700 .56rem var(--font-mono);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #9c9c9c;
+}
+.hero-banner-label i {
+  width: 6px;
+  height: 6px;
+  background: var(--red-bright);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(255, 47, 59, .18);
+}
+.hero-banner-dots { display: flex; align-items: center; gap: .3rem; margin-left: auto; }
+.hero-banner-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: width .22s var(--ease), background .22s var(--ease), border-color .22s var(--ease);
+}
+.hero-banner-dot.is-active {
+  width: 18px;
+  border-radius: 4px;
+  background: var(--red-bright);
+  border-color: var(--red-bright);
+}
+.hero-banner-nav { display: flex; gap: .28rem; margin-left: .35rem; }
+.hero-banner-btn {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 2px;
+  color: var(--white);
+  font-size: .78rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .2s var(--ease), border-color .2s var(--ease);
+}
+.hero-banner-btn:hover { background: var(--red); border-color: var(--red); }
+.hero-banner-view {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--ink-2);
+  overflow: hidden;
+}
+.hero-banner .banner-slide {
   position: absolute;
   inset: 0;
   display: block;
@@ -525,115 +602,74 @@ h1, h2, h3, p { margin: 0; }
   visibility: hidden;
   transition: opacity .55s var(--ease), visibility .55s;
 }
-.banner-slide.is-active { opacity: 1; visibility: visible; z-index: 2; }
-.banner-slide img { width: 100%; height: 100%; object-fit: cover; }
-.banner-shade {
+.hero-banner .banner-slide.is-active { opacity: 1; visibility: visible; z-index: 2; }
+.hero-banner .banner-slide img { width: 100%; height: 100%; object-fit: cover; }
+.hero-banner .banner-shade {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg,
-    rgba(11, 11, 12, .9) 0%,
-    rgba(11, 11, 12, .62) 42%,
-    rgba(11, 11, 12, .06) 100%);
+  background: linear-gradient(180deg,
+    rgba(11, 11, 12, .02) 30%,
+    rgba(11, 11, 12, .9) 100%);
 }
-.banner-copy {
+.hero-banner .banner-copy {
   position: absolute;
-  left: clamp(1.25rem, 4vw, 3.5rem);
-  bottom: clamp(1.5rem, 4vw, 3rem);
-  right: clamp(1.25rem, 34%, 50%);
+  left: .95rem;
+  right: .95rem;
+  bottom: .85rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: .7rem;
+  gap: .3rem;
   color: var(--white);
 }
-.banner-kicker {
-  font: 700 .62rem var(--font-mono);
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--red-bright);
+.hero-banner .banner-title {
+  font: 600 clamp(.95rem, 1.35vw, 1.2rem) / 1.16 var(--font-display);
+  letter-spacing: -.02em;
 }
-.banner-title {
-  font: 700 clamp(1.35rem, 3.2vw, 2.5rem)/1.08 var(--font-display);
-  letter-spacing: -.03em;
-  max-width: 24ch;
-}
-.banner-text {
-  max-width: 48ch;
-  font-size: clamp(.85rem, 1.15vw, 1rem);
-  color: rgba(255, 255, 255, .8);
+.hero-banner .banner-text {
+  max-width: 100%;
+  font-size: .74rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, .78);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.banner-cta {
+.hero-banner .banner-cta {
   display: inline-flex;
   align-items: center;
-  gap: .55rem;
-  margin-top: .2rem;
-  padding: .7rem 1.15rem;
-  background: var(--red);
-  color: var(--white);
-  font-weight: 600;
-  font-size: .85rem;
-  border-radius: 3px;
-  transition: background .2s var(--ease), transform .2s var(--ease);
+  gap: .35rem;
+  font: 600 .72rem var(--font-body);
+  color: var(--red-bright);
 }
-.banner-slide:hover .banner-cta { background: var(--red-bright); transform: translateX(3px); }
-.banner-nav {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 4;
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  padding: 0;
-  background: rgba(11, 11, 12, .55);
-  border: 1px solid rgba(255, 255, 255, .3);
-  border-radius: 3px;
-  color: var(--white);
-  font-size: 1.1rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: background .2s var(--ease), border-color .2s var(--ease);
+.hero-banner .banner-slide:hover .banner-cta { color: var(--white); }
+
+/* Ixcham mahsulot kartalari (banner ostida) */
+.hero-frame--compact { gap: .5rem; padding: .6rem; margin-top: .1rem; }
+.hero-frame--compact .hero-item {
+  grid-template-columns: auto 54px 1fr auto;
+  gap: .6rem;
+  padding: .45rem .55rem;
+  border-radius: 2px;
 }
-.banner-nav--prev { right: 4.4rem; }
-.banner-nav:hover { background: var(--red); border-color: var(--red); }
-.banner-dots {
-  position: absolute;
-  right: 1.35rem;
-  bottom: 1.35rem;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  gap: .4rem;
+.hero-frame--compact .hero-item img { width: 54px; height: 54px; }
+.hero-frame--compact .hero-item-no { font-size: .56rem; }
+.hero-frame--compact .hero-item-body b { font-size: .82rem; }
+.hero-frame--compact .hero-item-body em { margin-top: .15rem; font-size: .76rem; }
+.hero-frame--compact .hero-item-arrow { font-size: .9rem; }
+.hero-side .hero-badge { right: -10px; bottom: -14px; padding: .7rem .85rem; }
+
+@media (max-width: 980px) {
+  .header-cta { display: none; }
 }
-.banner-dot {
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  border: 1px solid rgba(255, 255, 255, .75);
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-  transition: width .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
-}
-.banner-dot.is-active { width: 28px; border-radius: 5px; background: var(--red); border-color: var(--red); }
-@media (max-width: 780px) {
-  .banner-section { padding-top: 1.75rem; }
-  .banner-slider { aspect-ratio: 4 / 3; min-height: 0; max-height: 400px; }
-  .banner-shade {
-    background: linear-gradient(180deg,
-      rgba(11, 11, 12, .05) 0%,
-      rgba(11, 11, 12, .55) 55%,
-      rgba(11, 11, 12, .92) 100%);
-  }
-  .banner-copy { right: 1.25rem; bottom: 2.6rem; gap: .55rem; }
-  .banner-text { -webkit-line-clamp: 2; }
-  .banner-nav { display: none; }
-  .banner-dots { left: 1.25rem; right: auto; bottom: 1.1rem; }
+
+@media (max-width: 680px) {
+  .hero-banner-view { aspect-ratio: 16 / 10; }
+  .hero-banner .banner-copy { left: .8rem; right: .8rem; bottom: .7rem; }
+  .hero-banner .banner-title { font-size: 1.02rem; }
+  .hero-banner .banner-text { font-size: .72rem; }
+  .hero-side .hero-badge { right: 4px; bottom: -18px; }
 }
 
 /* Harakatlanuvchi lenta */

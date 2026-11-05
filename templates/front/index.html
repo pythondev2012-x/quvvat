@@ -9,17 +9,6 @@
       <p class="eyebrow eyebrow--light"><span class="eyebrow-mark"></span>{% trans "Santexnika markazi · Toshkent" %}</p>
       <h1>{% blocktrans %}Uyingiz uchun <span class="accent">ishonchli</span> <span class="outline">santexnika</span>{% endblocktrans %}</h1>
       <p class="hero-lead">{% trans "Smesitel, unitaz, vanna, quvur va isitish jihozlari. Ombordan, kafolat bilan, tez yetkazib beramiz." %}</p>
-      <div class="hero-actions">
-        <a class="btn btn--red btn--lg" href="{% url 'all_products' %}">
-          {% trans "Katalogni ochish" %}
-          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        {% if user.is_authenticated %}
-          <a class="btn btn--outline btn--lg" href="{% url 'logout' %}">{% trans "Chiqish" %}</a>
-        {% else %}
-          <a class="btn btn--outline btn--lg" href="{% url 'register' %}">{% trans "Ro'yxatdan o'tish" %}</a>
-        {% endif %}
-      </div>
 
       <ul class="hero-stats">
         <li><b>{% trans "5 yil" %}</b><span>{% trans "kafolat" %}</span></li>
@@ -29,7 +18,46 @@
     </div>
 
     <div class="hero-side reveal">
-      <div class="hero-frame">
+      {% if banners %}
+        <div class="hero-banner" data-banner-slider aria-label="{% trans 'Aksiya va bannerlar' %}">
+          <div class="hero-banner-bar">
+            <span class="hero-banner-label"><i aria-hidden="true"></i>{% trans "Aksiyalar" %}</span>
+
+            {% if banners|length > 1 %}
+              <div class="hero-banner-dots">
+                {% for b in banners %}
+                  <button class="hero-banner-dot{% if forloop.first %} is-active{% endif %}" type="button"
+                          data-banner-dot="{{ forloop.counter0 }}"
+                          aria-label="{{ forloop.counter }} / {{ banners|length }}"
+                          {% if forloop.first %}aria-current="true"{% endif %}></button>
+                {% endfor %}
+              </div>
+              <div class="hero-banner-nav">
+                <button class="hero-banner-btn" type="button" data-banner-prev aria-label="{% trans 'Oldingi banner' %}">←</button>
+                <button class="hero-banner-btn" type="button" data-banner-next aria-label="{% trans 'Keyingi banner' %}">→</button>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="hero-banner-view">
+            {% for b in banners %}
+              <a class="banner-slide{% if forloop.first %} is-active{% endif %}"
+                 href="{% if b.product_1 %}{% url 'product_detail' b.product_1.code %}{% else %}{% url 'all_products' %}{% endif %}"
+                 {% if not forloop.first %}aria-hidden="true" tabindex="-1"{% endif %}>
+                <img src="{{ b.image.url }}" alt="{{ b.title }}"{% if not forloop.first %} loading="lazy"{% endif %}>
+                <span class="banner-shade" aria-hidden="true"></span>
+                <span class="banner-copy">
+                  <b class="banner-title">{{ b.title }}</b>
+                  {% if b.description %}<span class="banner-text">{{ b.description }}</span>{% endif %}
+                  <span class="banner-cta">{% trans "Batafsil" %} <span aria-hidden="true">→</span></span>
+                </span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="hero-frame hero-frame--compact">
         {% for p in latest_products %}
           <a class="hero-item" href="{% url 'product_detail' p.code %}">
             <span class="hero-item-no">{{ forloop.counter|stringformat:"02d" }}</span>
@@ -52,6 +80,7 @@
           </svg>
         {% endfor %}
       </div>
+
       <div class="hero-badge" aria-hidden="true">
         <b>100%</b>
         <span>{% trans "original mahsulot" %}</span>
@@ -59,42 +88,6 @@
     </div>
   </div>
 </section>
-
-{% if banners %}
-<section class="banner-section" aria-label="{% trans 'Aksiya va bannerlar' %}">
-  <div class="wrap">
-    <div class="banner-slider" data-banner-slider>
-      {% for b in banners %}
-        <a class="banner-slide{% if forloop.first %} is-active{% endif %}"
-           href="{% if b.product_1 %}{% url 'product_detail' b.product_1.code %}{% else %}{% url 'all_products' %}{% endif %}"
-           {% if not forloop.first %}aria-hidden="true" tabindex="-1"{% endif %}>
-          <img src="{{ b.image.url }}" alt="{{ b.title }}"{% if not forloop.first %} loading="lazy"{% endif %}>
-          <span class="banner-shade" aria-hidden="true"></span>
-          <span class="banner-copy">
-            <span class="banner-kicker">{{ forloop.counter|stringformat:"02d" }} / {{ banners|length }}</span>
-            <b class="banner-title">{{ b.title }}</b>
-            {% if b.description %}<span class="banner-text">{{ b.description }}</span>{% endif %}
-            <span class="banner-cta">{% trans "Batafsil" %} <span aria-hidden="true">→</span></span>
-          </span>
-        </a>
-      {% endfor %}
-
-      {% if banners|length > 1 %}
-        <button class="banner-nav banner-nav--prev" type="button" data-banner-prev aria-label="{% trans 'Oldingi banner' %}">←</button>
-        <button class="banner-nav banner-nav--next" type="button" data-banner-next aria-label="{% trans 'Keyingi banner' %}">→</button>
-        <div class="banner-dots">
-          {% for b in banners %}
-            <button class="banner-dot{% if forloop.first %} is-active{% endif %}" type="button"
-                    data-banner-dot="{{ forloop.counter0 }}"
-                    aria-label="{{ forloop.counter }} / {{ banners|length }}"
-                    {% if forloop.first %}aria-current="true"{% endif %}></button>
-          {% endfor %}
-        </div>
-      {% endif %}
-    </div>
-  </div>
-</section>
-{% endif %}
 
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">

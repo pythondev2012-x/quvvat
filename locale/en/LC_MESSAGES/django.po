@@ -36,6 +36,9 @@ msgstr "Sale"
 msgid "Aksiya va bannerlar"
 msgstr "Sales and banners"
 
+msgid "Aksiyalar"
+msgstr "Sales"
+
 msgid "Aloqa"
 msgstr "Contact"
 
