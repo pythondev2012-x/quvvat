@@ -217,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 272,
+                    height: 256,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         final product = newProducts[index];
                         return SizedBox(
-                          width: 166,
+                          width: 158,
                           child: ProductCard(
                             product: product,
                             onTap: () => _openProduct(product),
@@ -260,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                      childAspectRatio: 0.63,
+                      childAspectRatio: 0.66,
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
@@ -313,7 +313,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.fromLTRB(16, 8, 8, 0),
         child: Row(
           children: [
-            const AppLogo(size: 34),
+            const AppLogo(size: 30),
             const Spacer(),
             InkWell(
               onTap: () => showLanguageSheet(context),
@@ -361,7 +361,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _searchBar(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 14, 16, 0),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
       child: Material(
         color: AppColors.soft,
         borderRadius: BorderRadius.circular(12),
@@ -369,14 +369,14 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: _openSearch,
           borderRadius: BorderRadius.circular(12),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+            padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
             child: Row(
               children: [
-                const Icon(Icons.search_rounded, size: 20, color: AppColors.muted),
-                const SizedBox(width: 10),
+                const Icon(Icons.search_rounded, size: 19, color: AppColors.muted),
+                const SizedBox(width: 9),
                 Text(
                   context.tr('searchHint'),
-                  style: AppText.body(size: 14, color: AppColors.muted),
+                  style: AppText.body(size: 13, color: AppColors.muted),
                 ),
               ],
             ),
@@ -388,11 +388,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _bannersSection() {
     return Padding(
-      padding: const EdgeInsets.only(top: 18),
+      padding: const EdgeInsets.only(top: 14),
       child: Column(
         children: [
           SizedBox(
-            height: 162,
+            height: 146,
             child: PageView.builder(
               controller: _pageController,
               itemCount: _banners.length,
@@ -439,7 +439,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: AppText.display(
-                                    size: 17,
+                                    size: 15.5,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -469,7 +469,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           if (_banners.length > 1) ...[
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -505,7 +505,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(height: 10),
           SizedBox(
-            height: 96,
+            height: 88,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -525,12 +525,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   },
                   child: SizedBox(
-                    width: 74,
+                    width: 70,
                     child: Column(
                       children: [
                         Container(
-                          width: 60,
-                          height: 60,
+                          width: 56,
+                          height: 56,
                           decoration: BoxDecoration(
                             color: AppColors.soft,
                             shape: BoxShape.circle,

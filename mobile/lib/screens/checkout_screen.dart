@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
 import '../l10n/l10n.dart';
@@ -25,6 +28,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final _phoneController = TextEditingController();
   final _addressController = TextEditingController();
   bool _loading = false;
+  bool _locating = false;
+  double? _latitude;
+  double? _longitude;
+
+  bool get _hasLocation => _latitude != null && _longitude != null;
 
   @override
   void initState() {
@@ -55,6 +63,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           'username': _usernameController.text.trim(),
           'phone': _phoneController.text.trim(),
           'address': _addressController.text.trim(),
+          if (_hasLocation) ...{
+            'latitude': _latitude,
+            'longitude': _longitude,
+          },
         },
       );
       final order = Cart.fromJson(asMap(data));
@@ -78,6 +90,74 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     } finally {
       if (mounted) {
         setState(() => _loading = false);
+      }
+    }
+  }
+
+  /// Saytdagi kabi joriy lokatsiyani buyurtmaga biriktiradi.
+  Future<void> _attachLocation() async {
+    if (_locating) {
+      return;
+    }
+    setState(() => _locating = true);
+    try {
+      if (!await Geolocator.isLocationServiceEnabled()) {
+        if (mounted) {
+          showAppSnack(context, context.tr('locationServiceOff'), error: true);
+        }
+        return;
+      }
+
+      var permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        if (mounted) {
+          showAppSnack(
+            context,
+            context.tr('locationPermissionDenied'),
+            error: true,
+          );
+        }
+        return;
+      }
+
+      Position? position;
+      try {
+        position = await Geolocator.getCurrentPosition(
+          locationSettings: const LocationSettings(
+            accuracy: LocationAccuracy.high,
+            timeLimit: Duration(seconds: 20),
+          ),
+        );
+      } on TimeoutException {
+        position = await Geolocator.getLastKnownPosition();
+      }
+
+      if (position == null) {
+        if (mounted) {
+          showAppSnack(context, context.tr('locationFailed'), error: true);
+        }
+        return;
+      }
+      if (!mounted) {
+        return;
+      }
+      final located = position;
+      setState(() {
+        _latitude = located.latitude;
+        _longitude = located.longitude;
+      });
+      showAppSnack(context, context.tr('locationAttached'));
+    } catch (_) {
+      if (mounted) {
+        showAppSnack(context, context.tr('locationFailed'), error: true);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _locating = false);
       }
     }
   }
@@ -145,6 +225,65 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ? context.tr('requiredField')
                   : null,
             ),
+            const SizedBox(height: 10),
+            OutlinedButton.icon(
+              onPressed: _locating ? null : _attachLocation,
+              style: OutlinedButton.styleFrom(
+                minimumSize: const Size.fromHeight(44),
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+              ),
+              icon: _locating
+                  ? const SizedBox(
+                      width: 15,
+                      height: 15,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: AppColors.red,
+                      ),
+                    )
+                  : Icon(
+                      _hasLocation
+                          ? Icons.my_location_rounded
+                          : Icons.location_on_outlined,
+                      size: 18,
+                    ),
+              label: Text(
+                context.tr(
+                  _locating
+                      ? 'locating'
+                      : (_hasLocation ? 'updateLocation' : 'attachLocation'),
+                ),
+                style: AppText.body(size: 13, weight: FontWeight.w600),
+              ),
+            ),
+            const SizedBox(height: 6),
+            if (_hasLocation)
+              Row(
+                children: [
+                  const Icon(
+                    Icons.check_circle_rounded,
+                    size: 15,
+                    color: AppColors.green,
+                  ),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: Text(
+                      '${context.tr('locationAttached')} · '
+                      '${_latitude!.toStringAsFixed(5)}, '
+                      '${_longitude!.toStringAsFixed(5)}',
+                      style: AppText.body(
+                        size: 11.5,
+                        color: AppColors.green,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            else
+              Text(
+                context.tr('locationNote'),
+                style: AppText.body(size: 11.5, color: AppColors.muted),
+              ),
             const SizedBox(height: 24),
             Text(
               context.tr('orderDetails'),

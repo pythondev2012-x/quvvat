@@ -27,13 +27,13 @@ class ProductCard extends StatelessWidget {
     final currency = context.tr('currency');
     return Material(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(14),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(14),
         child: Ink(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(14),
             border: Border.all(color: AppColors.line),
           ),
           child: Column(
@@ -45,7 +45,7 @@ class ProductCard extends StatelessWidget {
                     Positioned.fill(
                       child: AppImage(
                         path: product.image,
-                        radius: 15,
+                        radius: 13,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -98,7 +98,7 @@ class ProductCard extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white.withValues(alpha: 0.66),
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(13),
                           ),
                           alignment: Alignment.center,
                           child: Container(
@@ -125,7 +125,7 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 9, 10, 10),
+                padding: const EdgeInsets.fromLTRB(9, 8, 9, 9),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -134,12 +134,12 @@ class ProductCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: AppText.body(
-                        size: 13,
+                        size: 12.5,
                         weight: FontWeight.w500,
                         height: 1.25,
                       ),
                     ),
-                    const SizedBox(height: 7),
+                    const SizedBox(height: 6),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -163,7 +163,7 @@ class ProductCard extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: AppText.body(
-                                  size: 14,
+                                  size: 13,
                                   weight: FontWeight.w700,
                                   color: product.hasDiscount
                                       ? AppColors.red
@@ -175,8 +175,8 @@ class ProductCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         SizedBox(
-                          width: 32,
-                          height: 32,
+                          width: 30,
+                          height: 30,
                           child: IconButton(
                             onPressed: product.inStock ? onAdd : null,
                             padding: EdgeInsets.zero,

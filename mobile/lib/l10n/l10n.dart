@@ -229,6 +229,51 @@ class L10n {
       'ru': 'Адрес доставки',
       'en': 'Delivery address',
     },
+    'attachLocation': {
+      'uz': 'Lokatsiyani biriktirish',
+      'ru': 'Прикрепить местоположение',
+      'en': 'Attach location',
+    },
+    'updateLocation': {
+      'uz': 'Lokatsiyani yangilash',
+      'ru': 'Обновить местоположение',
+      'en': 'Update location',
+    },
+    'locating': {
+      'uz': 'Lokatsiya aniqlanmoqda…',
+      'ru': 'Определение местоположения…',
+      'en': 'Locating…',
+    },
+    'locationAttached': {
+      'uz': 'Lokatsiya biriktirildi ✓',
+      'ru': 'Местоположение прикреплено ✓',
+      'en': 'Location attached ✓',
+    },
+    'locationFailed': {
+      'uz': "Lokatsiyani olib bo'lmadi — manzilni qo'lda kiriting.",
+      'ru': 'Не удалось получить местоположение — введите адрес вручную.',
+      'en': 'Could not get location — enter the address manually.',
+    },
+    'locationPermissionDenied': {
+      'uz': "Lokatsiyaga ruxsat berilmadi — manzilni qo'lda kiriting.",
+      'ru': 'Доступ к геолокации не разрешён — введите адрес вручную.',
+      'en': 'Location permission denied — enter the address manually.',
+    },
+    'locationServiceOff': {
+      'uz': "GPS o'chirilgan — telefonda lokatsiyani yoqing.",
+      'ru': 'GPS выключен — включите геолокацию на телефоне.',
+      'en': 'GPS is off — turn on location on your phone.',
+    },
+    'locationNote': {
+      'uz': 'Aniq yetkazib berish uchun lokatsiyani biriktiring (ixtiyoriy).',
+      'ru': 'Прикрепите местоположение для точной доставки (необязательно).',
+      'en': 'Attach your location for precise delivery (optional).',
+    },
+    'coordinates': {
+      'uz': 'Koordinatalar',
+      'ru': 'Координаты',
+      'en': 'Coordinates',
+    },
     'placeOrder': {
       'uz': 'Buyurtmani tasdiqlash',
       'ru': 'Подтвердить заказ',

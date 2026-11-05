@@ -8,6 +8,7 @@ Django REST API (`/api/`).
 - Katalog, kategoriyalar, qidiruv va saralash
 - Mahsulot tafsiloti, chegirma va qoldiq
 - Savat, miqdorni o'zgartirish, buyurtma berish
+- Buyurtmaga joriy lokatsiyani biriktirish (saytdagi kabi)
 - Ro'yxatdan o'tish, kirish, profil
 - Buyurtmalar tarixi va saqlanganlar (wishlist)
 - `uz` / `ru` / `en` tillari (interfeys va API kontenti)

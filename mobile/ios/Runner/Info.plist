@@ -39,6 +39,8 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Quvvat buyurtmani yetkazib berish uchun joylashuvingizni biriktirishga ruxsat so‘raydi.</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Quvvat mahalliy tarmoqdagi serverga ulanish uchun ruxsat so‘raydi.</string>
 	<key>UIApplicationSceneManifest</key>
