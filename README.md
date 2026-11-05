@@ -135,5 +135,18 @@ scripts/       ishga tushirish va PostgreSQL skriptlari
 
 ## Mobil ilova
 
-Keyingi bosqich — Flutter mobil ilova. U `/api/` orqali token
-autentifikatsiyasi bilan ishlaydi.
+`mobile/` — Flutter ilova (Android va iOS). Batafsil: [`mobile/README.md`](mobile/README.md).
+
+```powershell
+cd mobile
+flutter pub get
+flutter run
+```
+
+API manzili ilova sozlamalarida o‘zgartiriladi:
+
+- Emulyator: `http://10.0.2.2:8000/api`
+- Telefon: `http://<kompyuter-IP>:8000/api`
+
+Telefon uchun backend `0.0.0.0:8000` da tinglashi kerak — `scripts\start.ps1`
+buni avtomatik qiladi va lokal IP manzilni ko‘rsatadi.
