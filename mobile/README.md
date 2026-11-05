@@ -52,6 +52,11 @@ kompyuterning `localhost` manzili).
 
 ### Android
 
+Eng oson yo'l — `tool\build_android.bat` faylini ikki marta bosing. Skript
+Flutter, JDK va Android SDK'ni o'zi topadi va APK'ni yig'adi.
+
+Qo'lda build qilish:
+
 ```bash
 flutter build apk --release
 ```
