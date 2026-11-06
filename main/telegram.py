@@ -6,12 +6,15 @@ qaytariladi.
 """
 
 import logging
+import sys
 from html import escape
+from pathlib import Path
 from urllib.parse import quote
 
 import requests
 from django.utils import timezone
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from tokens import BOT_TOKEN, CHAT_ID
 
 logger = logging.getLogger(__name__)
