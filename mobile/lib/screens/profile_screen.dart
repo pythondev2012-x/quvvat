@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../config/api_config.dart';
 import '../l10n/l10n.dart';
 import '../providers/auth_provider.dart';
 import '../providers/settings_provider.dart';
@@ -74,6 +76,14 @@ class ProfileScreen extends StatelessWidget {
                   .languageLabel(context.watch<SettingsProvider>().language),
               onTap: () => showLanguageSheet(context),
             ),
+            const SizedBox(height: 6),
+            _menuTile(
+              context,
+              icon: Icons.admin_panel_settings_outlined,
+              iconColor: AppColors.red,
+              title: context.tr('adminLogin'),
+              onTap: () => _openAdminPanel(context),
+            ),
             const SizedBox(height: 18),
             if (auth.isLoggedIn)
               OutlinedButton.icon(
@@ -111,6 +121,29 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// Django admin panelini brauzerda ochadi — admin login o'sha yerda.
+  Future<void> _openAdminPanel(BuildContext context) async {
+    final failedMessage = context.tr('adminOpenFailed');
+    final origin = ApiConfig.origin;
+    if (origin.isEmpty) {
+      showAppSnack(context, failedMessage, error: true);
+      return;
+    }
+    try {
+      final opened = await launchUrl(
+        Uri.parse('$origin/admin/'),
+        mode: LaunchMode.externalApplication,
+      );
+      if (!opened && context.mounted) {
+        showAppSnack(context, failedMessage, error: true);
+      }
+    } catch (_) {
+      if (context.mounted) {
+        showAppSnack(context, failedMessage, error: true);
+      }
+    }
   }
 
   Widget _guestHeader(BuildContext context) {
@@ -249,6 +282,7 @@ class ProfileScreen extends StatelessWidget {
     required String title,
     required VoidCallback onTap,
     String? value,
+    Color? iconColor,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -266,7 +300,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(icon, size: 20, color: AppColors.ink),
+                Icon(icon, size: 20, color: iconColor ?? AppColors.ink),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(

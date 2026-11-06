@@ -63,6 +63,9 @@ msgstr "Learn more"
 msgid "Bo'limlar"
 msgstr "Sections"
 
+msgid "Bo'limlar bo'yicha"
+msgstr "By section"
+
 msgid "Bosh sahifa"
 msgstr "Home"
 
@@ -242,6 +245,9 @@ msgstr "Search products"
 
 msgid "Mahsulotlar"
 msgstr "Products"
+
+msgid "Mahsulotlar bo'limlari"
+msgstr "Product sections"
 
 msgid "Mahsulotlar tez orada qo'shiladi."
 msgstr "Products will be added soon."

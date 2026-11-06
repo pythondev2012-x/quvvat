@@ -21,6 +21,8 @@ TRANSLATIONS = {
         'Barcha mahsulotlar': 'Все товары',
         'Batafsil': 'Подробнее',
         "Bo'limlar": 'Разделы',
+        "Bo'limlar bo'yicha": 'По разделам',
+        'Mahsulotlar bo\'limlari': 'Разделы товаров',
         'Bosh sahifa': 'Главная',
         "Brauzeringiz lokatsiyani qo'llab-quvvatlamaydi — manzilni qo'lda kiriting.": (
             'Ваш браузер не поддерживает геолокацию — введите адрес вручную.'
@@ -218,6 +220,8 @@ TRANSLATIONS = {
         'Barcha mahsulotlar': 'All products',
         'Batafsil': 'Learn more',
         "Bo'limlar": 'Sections',
+        "Bo'limlar bo'yicha": 'By section',
+        'Mahsulotlar bo\'limlari': 'Product sections',
         'Bosh sahifa': 'Home',
         "Brauzeringiz lokatsiyani qo'llab-quvvatlamaydi — manzilni qo'lda kiriting.": (
             'Your browser does not support geolocation — please enter the '

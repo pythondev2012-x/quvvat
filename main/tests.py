@@ -34,6 +34,18 @@ class ApiSmokeTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data['count'], 1)
 
+    def test_product_sections(self):
+        Category.objects.create(name="Bo'sh kategoriya", is_active=True)
+
+        response = self.client.get('/api/product-sections/')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['count'], 1)
+
+        section = response.data['results'][0]
+        self.assertEqual(section['category']['id'], self.category.id)
+        self.assertEqual(len(section['products']), 1)
+        self.assertEqual(section['products'][0]['code'], str(self.product.code))
+
     def test_register_cart_and_checkout(self):
         response = self.client.post(
             '/api/auth/register/',

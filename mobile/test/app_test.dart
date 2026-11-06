@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:quvvat/models/paginated.dart';
 import 'package:quvvat/models/product.dart';
+import 'package:quvvat/models/product_section.dart';
 import 'package:quvvat/utils/formatters.dart';
 
 void main() {
@@ -63,6 +64,49 @@ void main() {
       expect(product.discountPercent, 20);
       expect(product.hasDiscount, isTrue);
       expect(product.inStock, isTrue);
+    });
+  });
+
+  group('ProductSection', () {
+    test('bo\'lim va mahsulotlarini o\'qiydi', () {
+      final sections = ProductSection.listFrom([
+        {
+          'category': {
+            'id': 2,
+            'name': 'Smesitellar',
+            'display_name': 'Смесители',
+            'logo': null,
+            'is_active': true,
+          },
+          'products': [
+            {
+              'id': 1,
+              'code': 'abc',
+              'category': {
+                'id': 2,
+                'name': 'Smesitellar',
+                'display_name': 'Смесители',
+                'logo': null,
+                'is_active': true,
+              },
+              'name': 'EPA smesitel',
+              'display_name': 'Смеситель EPA',
+              'price': 250000,
+              'count': 5,
+              'final_price': 250000,
+              'discount_percent': 0,
+            },
+          ],
+        },
+        {
+          'category': {'id': 3, 'name': "Bo'sh", 'display_name': "Bo'sh"},
+          'products': [],
+        },
+      ]);
+
+      expect(sections.length, 1);
+      expect(sections.first.category.displayName, 'Смесители');
+      expect(sections.first.products.single.displayName, 'Смеситель EPA');
     });
   });
 

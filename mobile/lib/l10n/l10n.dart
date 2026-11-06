@@ -321,6 +321,19 @@ class L10n {
       'en': 'No saved products',
     },
     'settings': {'uz': 'Sozlamalar', 'ru': 'Настройки', 'en': 'Settings'},
+    'adminLogin': {
+      'uz': 'Admin sifatida kirish',
+      'ru': 'Войти как администратор',
+      'en': 'Login as admin',
+    },
+    'adminOpenFailed': {
+      'uz':
+          "Admin panelni ochib bo'lmadi. Brauzerda server manzilini oching.",
+      'ru':
+          'Не удалось открыть админ-панель. Откройте адрес сервера в браузере.',
+      'en':
+          'Could not open the admin panel. Open the server address in a browser.',
+    },
     'serverSettings': {
       'uz': 'Server manzili',
       'ru': 'Адрес сервера',

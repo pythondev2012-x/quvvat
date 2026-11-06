@@ -63,6 +63,9 @@ msgstr "Подробнее"
 msgid "Bo'limlar"
 msgstr "Разделы"
 
+msgid "Bo'limlar bo'yicha"
+msgstr "По разделам"
+
 msgid "Bosh sahifa"
 msgstr "Главная"
 
@@ -242,6 +245,9 @@ msgstr "Поиск товаров"
 
 msgid "Mahsulotlar"
 msgstr "Товары"
+
+msgid "Mahsulotlar bo'limlari"
+msgstr "Разделы товаров"
 
 msgid "Mahsulotlar tez orada qo'shiladi."
 msgstr "Товары скоро появятся."

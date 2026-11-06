@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.utils.translation import gettext as _
 
 from .models import Banner, Product, Category, WishList, Cart, CartProduct, User
+from .selectors import grouped_products
 from .tasks import queue_order_notification
 
 
@@ -19,13 +20,12 @@ def _wishlist_ids_for_user(user):
 def index(request):
     categories = Category.objects.all()[:10]
     top_categories = Category.objects.filter(is_active=True)[:7]
-    products = Product.objects.all().order_by('-created_at')[:12]
     latest_products = Product.objects.all().order_by('-created_at')[:2]
     banners = Banner.objects.select_related('product_1').order_by('id')
     return render(request, 'front/index.html', {
         'categories': categories,
         'top_categories': top_categories,
-        'products': products,
+        'product_sections': grouped_products(limit=8),
         'latest_products': latest_products,
         'banners': banners,
         'wishlist_ids': _wishlist_ids_for_user(request.user),

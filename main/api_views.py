@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from . import models, serializers
+from .selectors import grouped_products
 from .tasks import queue_order_notification
 
 
@@ -61,6 +62,9 @@ class ApiRootView(APIView):
         return Response(
             {
                 'products': request.build_absolute_uri(reverse('api-products')),
+                'product_sections': request.build_absolute_uri(
+                    reverse('api-product-sections')
+                ),
                 'categories': request.build_absolute_uri(reverse('api-categories')),
                 'banners': request.build_absolute_uri(reverse('api-banners')),
                 'register': request.build_absolute_uri(reverse('api-register')),
@@ -162,6 +166,29 @@ class ProductDetailView(generics.RetrieveAPIView):
     permission_classes = [permissions.AllowAny]
     lookup_field = 'code'
     queryset = models.Product.objects.select_related('category')
+
+
+class ProductSectionsView(APIView):
+    """Mahsulotlarni kategoriya bo'yicha bo'limlarga guruhlab qaytaradi."""
+
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        results = []
+        for section in grouped_products(limit=8):
+            results.append(
+                {
+                    'category': serializers.CategorySerializer(
+                        section['category']
+                    ).data,
+                    'products': serializers.ProductSerializer(
+                        section['products'],
+                        many=True,
+                        context={'request': request},
+                    ).data,
+                }
+            )
+        return Response({'count': len(results), 'results': results})
 
 
 class BannerListView(generics.ListAPIView):

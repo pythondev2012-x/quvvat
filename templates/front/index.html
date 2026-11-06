@@ -148,27 +148,30 @@
   <div class="wrap">
     <div class="section-head reveal">
       <div>
-        <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Yangi kelganlar" %}</p>
-        <h2>{% trans "Yangi mahsulotlar" %}</h2>
+        <p class="eyebrow"><span class="eyebrow-mark"></span>{% trans "Bo'limlar bo'yicha" %}</p>
+        <h2>{% trans "Mahsulotlar bo'limlari" %}</h2>
       </div>
       <a class="link" href="{% url 'all_products' %}">{% trans "Barcha mahsulotlar" %} <span aria-hidden="true">→</span></a>
     </div>
 
-    {% if categories %}
-    <div class="chips">
-      {% for c in categories %}
-        <a class="chip" href="{% url 'category_filter' c.id %}">{{ c.display_name }}</a>
-      {% endfor %}
-    </div>
-    {% endif %}
-
-    <div class="product-grid">
-      {% for product in products %}
-        {% include "front/_card.html" %}
-      {% empty %}
-        <p class="empty">{% trans "Mahsulotlar tez orada qo'shiladi." %}</p>
-      {% endfor %}
-    </div>
+    {% for section in product_sections %}
+      <div class="product-section reveal">
+        <div class="product-section-head">
+          <div class="product-section-title">
+            <span class="product-section-no">{{ forloop.counter|stringformat:"02d" }}</span>
+            <h3>{{ section.category.display_name }}</h3>
+          </div>
+          <a class="link" href="{% url 'category_filter' section.category.id %}">{% trans "Hammasi" %} <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="product-grid">
+          {% for product in section.products %}
+            {% include "front/_card.html" %}
+          {% endfor %}
+        </div>
+      </div>
+    {% empty %}
+      <p class="empty">{% trans "Mahsulotlar tez orada qo'shiladi." %}</p>
+    {% endfor %}
   </div>
 </section>
 

@@ -840,6 +840,34 @@ h1, h2, h3, p { margin: 0; }
 }
 
 /* Mahsulot kartasi */
+.product-section + .product-section {
+  margin-top: 2.8rem;
+}
+.product-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+  padding-bottom: .8rem;
+  border-bottom: 1px solid var(--line);
+}
+.product-section-title {
+  display: flex;
+  align-items: baseline;
+  gap: .7rem;
+  min-width: 0;
+}
+.product-section-no {
+  font: 700 .62rem var(--font-mono);
+  letter-spacing: .14em;
+  color: var(--red);
+}
+.product-section-head h3 {
+  margin: 0;
+  font: 700 clamp(1.1rem, 1.8vw, 1.35rem) / 1.15 var(--font-display);
+  letter-spacing: -.02em;
+}
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(238px, 1fr));
@@ -1620,6 +1648,8 @@ h1, h2, h3, p { margin: 0; }
   .cat-arrow { display: none; }
 
   .product-grid { grid-template-columns: repeat(auto-fill, minmax(156px, 1fr)); gap: .8rem; }
+  .product-section + .product-section { margin-top: 2rem; }
+  .product-section-head { margin-bottom: .8rem; padding-bottom: .55rem; }
   .card-body { padding: .8rem; gap: .25rem; }
   .card-name { font-size: .9rem; }
   .price strong { font-size: .95rem; }

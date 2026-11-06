@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import '../l10n/l10n.dart';
 import '../models/banner_item.dart';
 import '../models/category.dart';
-import '../models/paginated.dart';
 import '../models/product.dart';
+import '../models/product_section.dart';
 import '../providers/settings_provider.dart';
 import '../providers/wishlist_provider.dart';
 import '../services/api_client.dart';
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController(viewportFraction: 0.9);
   final List<BannerItem> _banners = [];
   final List<Category> _categories = [];
-  final List<Product> _products = [];
+  final List<ProductSection> _sections = [];
 
   bool _loading = true;
   String? _error;
@@ -86,17 +86,14 @@ class _HomeScreenState extends State<HomeScreen> {
           '/categories/',
           query: {'active': 1},
         ),
-        context.read<ApiClient>().get(
-          '/products/',
-          query: {'page': 1, 'ordering': '-created_at'},
-        ),
+        context.read<ApiClient>().get('/product-sections/'),
       ]);
       if (!mounted) {
         return;
       }
       final bannersData = results[0];
       final categoriesData = results[1];
-      final productsData = results[2];
+      final sectionsData = results[2];
 
       final bannersRaw =
           bannersData is Map && bannersData['results'] != null
@@ -106,11 +103,10 @@ class _HomeScreenState extends State<HomeScreen> {
           categoriesData is Map && categoriesData['results'] != null
               ? categoriesData['results']
               : categoriesData;
-
-      final products = Paginated<Product>.fromJson(
-        productsData,
-        (json) => Product.fromJson(json),
-      ).results;
+      final sectionsRaw =
+          sectionsData is Map && sectionsData['results'] != null
+              ? sectionsData['results']
+              : sectionsData;
 
       setState(() {
         _banners
@@ -119,9 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
         _categories
           ..clear()
           ..addAll(Category.listFrom(categoriesRaw));
-        _products
+        _sections
           ..clear()
-          ..addAll(products);
+          ..addAll(ProductSection.listFrom(sectionsRaw));
       });
       _restartBannerTimer();
     } on ApiException catch (error) {
@@ -158,10 +154,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _openAllProducts() {
+  void _openCategory(Category category) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => ProductListScreen(title: context.tr('allProducts')),
+        builder: (_) => ProductListScreen(
+          title: category.displayName,
+          categoryId: category.id,
+        ),
       ),
     );
   }
@@ -169,8 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final wishlist = context.watch<WishlistProvider>();
-    final newProducts = _products.take(6).toList();
-    final gridProducts = _products.take(8).toList();
+    final hasContent =
+        _banners.isNotEmpty || _categories.isNotEmpty || _sections.isNotEmpty;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -182,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
           slivers: [
             SliverToBoxAdapter(child: _header(context)),
             SliverToBoxAdapter(child: _searchBar(context)),
-            if (_loading && _products.isEmpty && _banners.isEmpty)
+            if (_loading && !hasContent)
               const SliverFillRemaining(
                 hasScrollBody: false,
                 child: Padding(
@@ -190,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: AppLoader(),
                 ),
               )
-            else if (_error != null && _products.isEmpty && _banners.isEmpty)
+            else if (_error != null && !hasContent)
               SliverFillRemaining(
                 hasScrollBody: false,
                 child: ErrorView(
@@ -204,14 +203,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 SliverToBoxAdapter(child: _bannersSection()),
               if (_categories.isNotEmpty)
                 SliverToBoxAdapter(child: _categoriesSection()),
-              if (newProducts.isNotEmpty) ...[
+              for (final section in _sections) ...[
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
                     child: SectionHeader(
-                      title: context.tr('newProducts'),
+                      title: section.category.displayName,
                       actionLabel: context.tr('seeAll'),
-                      onAction: _openAllProducts,
+                      onAction: () => _openCategory(section.category),
                     ),
                   ),
                 ),
@@ -221,10 +220,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: newProducts.length,
+                      itemCount: section.products.length,
                       separatorBuilder: (_, __) => const SizedBox(width: 10),
                       itemBuilder: (context, index) {
-                        final product = newProducts[index];
+                        final product = section.products[index];
                         return SizedBox(
                           width: 158,
                           child: ProductCard(
@@ -241,45 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ],
-              if (gridProducts.isNotEmpty) ...[
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 24, 16, 12),
-                    child: SectionHeader(
-                      title: context.tr('allProducts'),
-                      actionLabel: context.tr('seeAll'),
-                      onAction: _openAllProducts,
-                    ),
-                  ),
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
-                  sliver: SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 0.66,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final product = gridProducts[index];
-                        return ProductCard(
-                          product: product,
-                          onTap: () => _openProduct(product),
-                          onAdd: () => addProductToCart(context, product),
-                          isFavorite: wishlist.contains(product.code),
-                          onFavorite: () =>
-                              toggleProductWishlist(context, product),
-                        );
-                      },
-                      childCount: gridProducts.length,
-                    ),
-                  ),
-                ),
-              ],
-              if (_products.isEmpty && _error == null && !_loading)
+              if (_sections.isEmpty && _error == null && !_loading)
                 SliverFillRemaining(
                   hasScrollBody: false,
                   child: EmptyState(

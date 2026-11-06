@@ -14,6 +14,11 @@ urlpatterns = [
     ),
     path('products/', api_views.ProductListView.as_view(), name='api-products'),
     path(
+        'product-sections/',
+        api_views.ProductSectionsView.as_view(),
+        name='api-product-sections',
+    ),
+    path(
         'products/<str:code>/',
         api_views.ProductDetailView.as_view(),
         name='api-product-detail',
