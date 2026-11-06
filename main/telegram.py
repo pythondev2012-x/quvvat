@@ -6,16 +6,15 @@ qaytariladi.
 """
 
 import logging
-import sys
+import os
 from html import escape
-from pathlib import Path
 from urllib.parse import quote
 
 import requests
 from django.utils import timezone
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from tokens import BOT_TOKEN, CHAT_ID
+BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
+CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', '')
 
 logger = logging.getLogger(__name__)
 
